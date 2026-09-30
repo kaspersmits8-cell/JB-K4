@@ -1,4 +1,5 @@
 import "./globals.css";
+export const dynamic = "force-dynamic";
 import { IBM_Plex_Sans, IBM_Plex_Serif, IBM_Plex_Mono } from "next/font/google";
 export const dynamic = "force-dynamic";
 import { copy } from "../ui/copy.ts";
