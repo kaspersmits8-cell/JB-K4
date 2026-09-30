@@ -15,6 +15,6 @@ export type Step = "question" | "answer" | "respond";
 export function flowUrl(caseId: string, step: Step, query: FlowQuery, updates: Partial<FlowQuery> = {}) {
   const state = { ...query, ...updates };
   const params = new URLSearchParams();
-  for (const [key, value] of Object.entries(state)) if (value !== undefined && value !== "" && value !== "0") params.set(key, value);
+  for (const [key, value] of Object.entries(state)) if (value !== undefined && (value !== "" || key === "checks") && value !== "0") params.set(key, value);
   return `/cases/${caseId}${step === "question" ? "" : `/${step}`}${params.size ? `?${params}` : ""}`;
 }
