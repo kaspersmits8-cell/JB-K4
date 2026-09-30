@@ -162,7 +162,8 @@ Hallo Jan, ... Piet Peeters werkt 70% tot en met 31 december 2025. ...
 | `scope.employee_ids` | | for messages about specific employees |
 | `topics` | ✓ | `vocabulary.topics` |
 | `visibility` | ✓ | `internal` or `client_shareable` |
-| `from`, `to`, `sent_at`, `thread_id` | emails/chats | person ids |
+| `from`, `to` | emails/chats | sender and recipient ids: person (`P-…`) or employee (`E-…`); each must exist |
+| `sent_at`, `thread_id` | emails/chats | ISO timestamp and thread id |
 | `case_id` | | link to a case |
 | `assertions` | | pinned facts the text states (below) |
 
@@ -208,6 +209,7 @@ The app can extract facts from text with AI, but for everything the demo depends
 | `client_id`, `employee_id` | ✓ | |
 | `channel` | ✓ | `ticket`, `email`, `phone` |
 | `opened_at` | ✓ | |
+| `deadline` | | Optional ISO date (`YYYY-MM-DD`), e.g. `2026-02-18`; invalid calendar dates are errors |
 | `reporter_id` | ✓ | the client HR person |
 | `assigned_to` | ✓ for open | consultant id |
 | `language` | | `nl`, `fr`, `en`: language for the reply |

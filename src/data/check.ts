@@ -21,6 +21,7 @@ export function checkData(connector: Connector) {
     (dataset[input.kind] as Entity[]).push(input.kind === "documents" ? { ...entity, body: input.body || "" } as Entity : entity);
   }
   const sets = Object.fromEntries(Object.entries(dataset).map(([kind, entries]) => [kind, new Set(entries.map((e: Entity) => e.id))])) as Record<keyof Dataset, Set<string>>;
+  const correspondents = new Set([...sets.people, ...sets.employees]);
   const sourceIds = new Set([...sets.records, ...sets.documents]);
   const ref = (entity: Entity, field: string, value: string | null | undefined, allowed: Set<string>) => { if (value && !allowed.has(value)) add(entity, field, `Unknown reference ${value}`); };
   const period = (entity: Entity, from: string | null, to: string | null, field: string) => { if (from && to && from > to) add(entity, field, "Start date is after end date"); };
@@ -36,8 +37,8 @@ export function checkData(connector: Connector) {
     for (const derived of record.derived_from) ref(record, "derived_from", derived, sets.records);
   }
   for (const doc of dataset.documents) {
-    period(doc, doc.valid_from, doc.valid_to, "valid_from"); ref(doc, "owner", doc.owner, sets.people); ref(doc, "supersedes", doc.supersedes, sets.documents); ref(doc, "case_id", doc.case_id, sets.cases); ref(doc, "from", doc.from, sets.people);
-    for (const person of doc.to || []) ref(doc, "to", person, sets.people);
+    period(doc, doc.valid_from, doc.valid_to, "valid_from"); ref(doc, "owner", doc.owner, sets.people); ref(doc, "supersedes", doc.supersedes, sets.documents); ref(doc, "case_id", doc.case_id, sets.cases); ref(doc, "from", doc.from, correspondents);
+    for (const person of doc.to || []) ref(doc, "to", person, correspondents);
     for (const client of doc.scope.client_ids) if (client !== "*") ref(doc, "scope.client_ids", client, sets.clients);
     for (const employee of doc.scope.employee_ids || []) ref(doc, "scope.employee_ids", employee, sets.employees);
     if (!doc.owner) add(doc, "owner", "Document has no owner", "warn", "Fine if intended; this document cannot be authoritative.");

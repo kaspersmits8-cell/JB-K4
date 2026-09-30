@@ -142,3 +142,18 @@ ul { padding-left: 1.2rem; list-style: disc; }
 @media (max-width: 640px) { .shell { padding: 1.4rem .8rem 3rem; }.topbar { padding: 1rem; flex-wrap: wrap; }.topbar .row { flex-wrap: wrap; }.panel { padding: 1rem; }.metadata { grid-template-columns: 1fr; }.metadata dt { font-weight: 500; }.source-dialog { padding: 1rem; }.whatif { padding: .7rem; } }
 
 }
+@layer components {
+.flow-shell { max-width: 1120px; }
+.stepper { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 1.2rem; }
+.stepper a { display: inline-flex; gap: .6rem; align-items: center; color: var(--muted); text-decoration: none; }
+.stepper a[aria-current] { color: var(--indigo); font-weight: 500; }
+.stepper a span { border: 1px solid currentColor; width: 1.8rem; height: 1.8rem; border-radius: 50%; display: grid; place-items: center; }
+.context-bar { font-size: .875rem; line-height: 1.8; }
+.inbox-cards { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit,minmax(min(100%,26rem),1fr)); }
+.inbox-card { color: var(--ink); text-decoration: none; transition: border-color .15s; }
+.inbox-card:hover { border-color: var(--indigo); }
+.source-body, .client-message { font-family: var(--font-serif),serif; white-space: pre-wrap; line-height: 1.8; overflow-wrap: anywhere; }
+.source-body mark { background: var(--highlighter); color: var(--ink); }
+.primary-link { display: inline-block; padding: .65rem 1rem; border-radius: .35rem; text-decoration: none; }
+@media(max-width:640px) { .stepper { gap: .9rem; font-size: .875rem; } }
+}
