@@ -1,0 +1,17 @@
+CREATE TABLE clients (id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE people (id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE TABLE employees (id TEXT PRIMARY KEY, client_id TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE sources (id TEXT PRIMARY KEY, kind TEXT NOT NULL, client_id TEXT, source_type TEXT NOT NULL, status TEXT NOT NULL, known_at TEXT NOT NULL, visibility TEXT NOT NULL, meta_json TEXT NOT NULL);
+CREATE TABLE fragments (id TEXT PRIMARY KEY, source_id TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE assertions (id TEXT PRIMARY KEY, source_id TEXT NOT NULL, subject_id TEXT NOT NULL, attribute TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE cases (id TEXT PRIMARY KEY, client_id TEXT NOT NULL, status TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE case_events (id TEXT PRIMARY KEY, case_id TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE users (id TEXT PRIMARY KEY, email TEXT NOT NULL UNIQUE COLLATE NOCASE, person_id TEXT NOT NULL, role TEXT NOT NULL, password_hash TEXT NOT NULL);
+CREATE TABLE decisions (id TEXT PRIMARY KEY, case_id TEXT NOT NULL, actor_id TEXT NOT NULL, action TEXT NOT NULL, rationale TEXT NOT NULL, at TEXT NOT NULL);
+CREATE TABLE case_status_events (id TEXT PRIMARY KEY, case_id TEXT NOT NULL, status TEXT NOT NULL, payload TEXT NOT NULL);
+CREATE TABLE llm_cache (id TEXT PRIMARY KEY, payload TEXT NOT NULL);
+CREATE INDEX assertions_subject_attribute ON assertions(subject_id, attribute);
+CREATE INDEX sources_client ON sources(client_id);
+CREATE INDEX fragments_source ON fragments(source_id);
+CREATE INDEX cases_client_status ON cases(client_id, status);
+CREATE INDEX decisions_case ON decisions(case_id, at);

@@ -1,0 +1,19 @@
+{
+  "id": "CASE-0001",
+  "status": "open",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "channel": "ticket",
+  "opened_at": "2026-02-01T09:15:00Z",
+  "reporter_id": "P-0010",
+  "assigned_to": "P-0001",
+  "language": "nl",
+  "question_text": "Dag Jan, Piet Peeters meldt dat zijn loon voor januari te laag is: hij ontving 3.500 euro bruto in plaats van 5.000. Kun je dit dringend nakijken? De afsluiting van februari komt eraan. Groeten, Melanie",
+  "disputed_period": { "from": "2026-01-01", "to": "2026-01-31" },
+  "reported": { "expected_amount": 5000, "received_amount": 3500, "currency": "EUR", "basis": "gross" },
+  "topics": ["payslip", "work_regime"],
+  "timeline": [
+    { "at": "2026-02-01T09:15:00Z", "type": "received", "actor_id": "P-0010", "description": "Question received via ticket", "source_ids": [] }
+  ]
+}
