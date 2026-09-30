@@ -15,6 +15,6 @@ test("rendered dossier exposes findings and what-if differences while escaping s
   const base = analyzeCase(input), analysis = analyzeCase({ ...input, excludedSourceIds: ["REC-0002"] });
   const reply = await draftClientReply(analysis), explanation = await draftExplanation(analysis);
   const html = renderToStaticMarkup(createElement(Dossier, { result: { analysis, diff: diffAnalyses(base, analysis), demoClock: true, decisions: [], correction: { stage: "none", proposedBy: null } }, user: { id: "u1", email: "jan@example.com", personId: "P-0001", role: "consultant" }, reply, explanation, expertQuestions: [] }));
-  expect(html).toContain("What-if"); expect(html).toContain("Indication"); expect(html).toContain("Reset"); expect(html).toContain("Findings"); expect(html).toContain("Other period");
+  expect(html).toContain("What-if"); expect(html).toContain("Unconfirmed"); expect(html).toContain("Reset"); expect(html).toContain("Findings"); expect(html).toContain("Other period");
   expect(html).not.toContain("<script>alert"); expect(html).toContain("&lt;script&gt;");
 });
