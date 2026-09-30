@@ -1,8 +1,10 @@
 import { loadFlow, type FlowPageProps } from "../../../../server/services/flow.ts";
+import { draftExpertQuestion } from "../../../../ai/tasks/drafts.ts";
 import { FlowFrame } from "../../../../ui/FlowFrame.tsx";
-import { flowCopy } from "../../../../ui/copy.ts";
+import { Answer } from "../../../../ui/Answer.tsx";
 export const dynamic = "force-dynamic";
 export default async function Page(props: FlowPageProps) {
   const data = await loadFlow(props);
-  return <FlowFrame data={data} step="answer"><h1>{flowCopy.answer}</h1></FlowFrame>;
+  const questions = await Promise.all(data.result.analysis.experts.map(async expert => ({ id:expert.person.id, draft:await draftExpertQuestion(data.result.analysis,expert.person.id) })));
+  return <FlowFrame data={data} step="answer"><Answer data={data} questions={questions} /></FlowFrame>;
 }
