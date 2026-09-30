@@ -1,0 +1,26 @@
+{
+  "id": "REC-0005",
+  "type": "payslip",
+  "system": "Payroll engine",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-01-31",
+  "known_at": "2026-01-26T17:00:00Z",
+  "status": "processed",
+  "visibility": "client_shareable",
+  "derived_from": [
+    "REC-0004"
+  ],
+  "facts": [
+    {
+      "attribute": "work_regime_pct",
+      "value": 70
+    },
+    {
+      "attribute": "base_salary_gross_paid",
+      "value": 3500
+    }
+  ],
+  "note": "Snapshot of payroll input used for the January 2026 run"
+}

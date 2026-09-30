@@ -1,0 +1,21 @@
+{
+  "id": "REC-0003",
+  "type": "hr_master_data",
+  "system": "HR administration",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": null,
+  "known_at": "2025-12-12T10:30:00Z",
+  "status": "approved",
+  "approved_by": "P-0002",
+  "visibility": "internal",
+  "derived_from": [],
+  "facts": [
+    {
+      "attribute": "fulltime_reference_salary_gross",
+      "value": 5000
+    }
+  ],
+  "note": "Return to full-time from 1 January 2026"
+}

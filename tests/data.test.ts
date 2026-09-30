@@ -15,6 +15,7 @@ test("supplied templates and minimal main-case fixture pass without modifying so
   const before = digest("docs/data-templates");
   expect(checkData(new FileConnector("docs/data-templates")).errors).toBe(0);
   expect(checkData(fixtureConnector(mainData())).errors).toBe(0);
+  expect(checkData(new FileConnector("tests/fixtures/main")).errors).toBe(0);
   expect(digest("docs/data-templates")).toBe(before);
 });
 test("checker reports per-file malformed types, missing references, invalid periods and exact quotes", () => {
@@ -30,6 +31,9 @@ test("checker reports per-file malformed types, missing references, invalid peri
   expect(checked.issues.some(i => i.field === "assigned_to" && i.severity === "warn")).toBe(true);
   expect(checkData({ read: () => ({ sources: [{ kind: "clients", file: "broken.json", raw: { id: "bad" } }], issues: [], fileCount: 1 }) }).errors).toBeGreaterThan(0);
   expect(checkData(new FileConnector("tests/fixtures/does-not-exist")).errors).toBe(3);
+  const broken = checkData(new FileConnector("tests/fixtures/broken"));
+  expect(broken.errors).toBeGreaterThan(0);
+  expect(formatReport(broken)).toContain("records/bad-record.json");
 });
 test("normalisation keeps exact quote offsets, stable IDs, origins, and file-order independence", () => {
   const data = mainData(), result = normalize(data);

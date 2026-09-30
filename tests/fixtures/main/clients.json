@@ -1,0 +1,19 @@
+[
+  {
+    "id": "CL-0001",
+    "name": "Brightfield Retail NV",
+    "country": "BE",
+    "joint_committee": "PC 200",
+    "consultant_ids": [
+      "P-0001"
+    ]
+  },
+  {
+    "id": "CL-0002",
+    "name": "Norden Logistics BV",
+    "country": "NL",
+    "consultant_ids": [
+      "P-0004"
+    ]
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "id": "CASE-0902",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0002",
+  "employee_id": "E-0101",
+  "channel": "email",
+  "opened_at": "2025-03-04T08:00:00Z",
+  "reporter_id": "P-0011",
+  "question_text": "Employee reports a lower salary after returning to full-time.",
+  "disputed_period": {
+    "from": "2025-02-01",
+    "to": "2025-02-28"
+  },
+  "reported": {
+    "currency": "EUR",
+    "basis": "gross"
+  },
+  "topics": [
+    "payslip",
+    "work_regime"
+  ],
+  "timeline": [],
+  "resolution": {
+    "root_cause": "work_regime_not_updated",
+    "summary": "An approved return to full-time was not updated in payroll input. Corrected via a separate calculation after payroll lead approval.",
+    "decided_by": "P-0003",
+    "decided_at": "2025-03-06T15:00:00Z",
+    "source_ids": [
+      "DOC-0001"
+    ]
+  },
+  "outcome": {
+    "status": "reversed",
+    "confirmed_at": "2025-04-01T09:00:00Z",
+    "note": "Test scenario: subsequent review reversed the decision."
+  }
+}

@@ -1,0 +1,95 @@
+[
+  {
+    "id": "P-0001",
+    "name": "Jan De Vries",
+    "email": "jan.devries@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Payroll Services BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "payslip"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0002",
+    "name": "Sofie Martens",
+    "email": "sofie.martens@example.com",
+    "organisation": "SDWORX",
+    "role": "payroll_lead",
+    "team": "Payroll Services BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "payroll_correction"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0003",
+    "name": "Karim El Amrani",
+    "email": "karim.elamrani@example.com",
+    "organisation": "SDWORX",
+    "role": "expert",
+    "team": "Payroll Knowledge Centre",
+    "countries": [
+      "BE",
+      "NL"
+    ],
+    "responsibilities": [
+      "work_regime",
+      "payroll_correction"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0004",
+    "name": "Eva Jansen",
+    "email": "eva.jansen@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Payroll Services NL",
+    "countries": [
+      "NL"
+    ],
+    "responsibilities": [
+      "payslip"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0010",
+    "name": "Melanie Claes",
+    "email": "melanie.claes@example.com",
+    "organisation": "CL-0001",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0011",
+    "name": "Daan Bakker",
+    "email": "daan.bakker@example.com",
+    "organisation": "CL-0002",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0005",
+    "name": "Second Lead",
+    "email": "lead.two@example.com",
+    "organisation": "SDWORX",
+    "role": "payroll_lead",
+    "team": "Payroll Services BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "payroll_correction"
+    ],
+    "active": true
+  }
+]

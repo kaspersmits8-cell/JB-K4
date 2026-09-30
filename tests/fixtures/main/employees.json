@@ -1,0 +1,18 @@
+[
+  {
+    "id": "E-0001",
+    "client_id": "CL-0001",
+    "name": "Piet Peeters",
+    "job_title": "Product Manager",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0101",
+    "client_id": "CL-0002",
+    "name": "Lotte Visser",
+    "job_title": "Planner",
+    "employee_category": "white_collar",
+    "country": "NL"
+  }
+]
