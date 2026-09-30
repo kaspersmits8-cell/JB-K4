@@ -56,8 +56,9 @@ Complete the environment and data setup below before running `npm run dev`.
 `npm test`, `npm run typecheck`, and `npm run lint` run the main checks;
 `npm run test:e2e` runs the Playwright browser walkthrough after a production build.
 
-Milestone 1 implements the deterministic engine, scoped case workspace, and mock
-drafts. Never write application-generated content into `data/` or `DATA_DIR`.
+The app includes the deterministic engine, scoped case workspace, and mock
+drafts. Application-generated content is stored in SQLite; `data/` and `DATA_DIR`
+are read-only inputs.
 
 The palette lives in `src/app/globals.css`, including Tailwind v4's `@theme inline`
 configuration. Use its named colour utilities (for example `bg-paper`, `text-ink`,
@@ -80,13 +81,10 @@ username `1` and password `1`. This development-only identity opens the empty
 inbox and has no client data access. Disable the flag to invalidate its sessions.
 Use `npm run user:create` for an account linked to an ingested person.
 
-The fictional v1 demo dataset is supplied separately and is installed in this
-local workspace under `data/`. The dataset, `docs/data/`, `research/`, and
-`tests/answer_key.json` are currently untracked, so a fresh clone does not include
-them. The tracked acceptance fixture below provides a setup without that package.
-When the package is available, `docs/data/INSTALL.md` describes its demo clock,
-account provisioning, and two email metadata compatibility fixes.
-`tests/answer_key.json` is a reference for expected findings, not an automated test.
+The repository includes a fictional demo dataset in `data/`: clients, people,
+employees, payroll records, documents and cases. Supporting material is in
+`research/`, and `tests/answer_key.json` describes expected findings for manual
+review. The setup below uses this included dataset; no separate download is needed.
 
 ## Setup from a fresh clone (PowerShell)
 
@@ -103,7 +101,47 @@ Put the generated value after `SESSION_SECRET=` in `.env.local`. Keep existing
 local secrets when updating the file. No AI API key is needed. The app refuses
 to start with an invalid secret, clock, provider, or database configuration.
 
-For a fresh clone, use the tracked acceptance fixture in a separate database:
+Load the included demo dataset and create the three demo accounts:
+
+```powershell
+$env:DATA_DIR = './data'
+$env:DB_PATH = './.local/trust.db'
+$env:DEMO_NOW = '2026-02-03T12:00:00Z'
+npm run data:check
+npm run data:ingest
+npm run user:create -- --email jan@example.com --person P-0001 --role consultant
+npm run user:create -- --email lucas@example.com --person P-0005 --role payroll_lead
+npm run user:create -- --email femke@example.com --person P-0006 --role consultant
+npm run dev
+```
+
+Each `user:create` command prompts for a password twice, with hidden input. For
+a local demo, you can enter the example passwords below. These accounts are
+created by the commands above; importing the dataset alone does not create logins.
+
+| Login email | Example local demo password | Role in the demo |
+| --- | --- | --- |
+| `jan@example.com` | `Trustworx-Jan-2026!` | Consultant investigating Piet's case. |
+| `lucas@example.com` | `Trustworx-Lucas-2026!` | Payroll lead who can approve Jan's correction proposal. |
+| `femke@example.com` | `Trustworx-Femke-2026!` | Consultant for the other client, demonstrating access boundaries. |
+
+Use these public example passwords only for a local demo. Existing accounts keep
+the passwords chosen when they were created.
+
+Open [localhost:3000](http://localhost:3000), sign in as Jan, and open Piet's case
+(`CASE-0001`). Follow **Question → Answer → Respond**. The pinned demo clock
+includes Melanie's ticket and attachments and the second client's case.
+Consultants and leads can propose, execute and confirm corrections; approval
+requires a different payroll lead. Every transition requires a rationale.
+
+Both frontend and backend run in one process. Stop with Ctrl+C. For another
+terminal, set the same variables again, or put them in `.env.local`. PowerShell
+environment variables override `.env.local`. The optional `1` / `1` preview login
+opens an empty inbox and has no access to demo data.
+
+### Optional: run with the acceptance fixture
+
+For development checks with a smaller dataset, use a separate database:
 
 ```powershell
 $env:DATA_DIR = 'tests/fixtures/main'
@@ -115,39 +153,9 @@ npm run user:create -- --email jan@example.com --person P-0001 --role consultant
 npm run dev
 ```
 
-Enter and repeat your own password when prompted (input stays hidden), then open
-http://localhost:3000 and sign in. Both frontend and backend run in this one
-process. Stop with Ctrl+C. For another terminal, set the same variables again,
-or put them in `.env.local`. `1` / `1` is only an empty preview; it never receives
-access to the fixture or authored dataset.
-
-For correction approval, create a separate account with `--person P-0002 --role
-payroll_lead`. A second lead, P-0005, exists in the acceptance fixture. These IDs
-belong to the fixture; check `people.json` for the authored dataset. Consultants
-and leads can propose, execute and confirm; only a different payroll lead can
-approve. Every transition requires a rationale. Recording “Send explanation”
-only records the action; no message or payment is sent.
-
-### Using the separately supplied demo dataset
-
-Once the teammate-authored package is installed, use the following settings
-instead of the fixture settings above. PowerShell environment variables override
-`.env.local`, so replace any fixture values in the current terminal as well.
-
-```powershell
-$env:DATA_DIR = './data'
-$env:DB_PATH = './.local/trust.db'
-$env:DEMO_NOW = '2026-02-03T12:00:00Z'
-npm run data:check
-npm run data:ingest
-npm run user:create -- --email jan@example.com --person P-0001 --role consultant
-npm run dev
-```
-
-The later demo clock includes Melanie's ticket and attachments and the second
-client's case. In this dataset Lucas (`P-0005`) is the payroll lead and Femke
-(`P-0006`) is the other client's consultant. Use `docs/data/INSTALL.md` from the
-package for its full account setup; person IDs differ from the acceptance fixture.
+The fixture has different people from the demo dataset: its payroll leads are
+`P-0002` and `P-0005`. See `tests/fixtures/main/README.md` for fixture details.
+Restore the demo settings above when switching back.
 
 ## Environment
 
@@ -157,7 +165,7 @@ package for its full account setup; person IDs differ from the acceptance fixtur
 | `DATA_DIR` | Read-only input directory; defaults to `./data`. |
 | `DB_PATH` | SQLite file; defaults to `./.local/trust.db`; must be outside both protected data directories. |
 | `DEMO_NOW` | Optional ISO timestamp used as the `asOf` of every analysis; shown in the dossier header. Decision audit timestamps always use real server time. |
-| `LLM_PROVIDER` | `mock` only in this milestone. |
+| `LLM_PROVIDER` | Only `mock` is currently supported. |
 | `LLM_MODEL` | Reserved; mock does not need it. |
 | `LOCAL_DEMO_LOGIN` | Opt-in empty preview login in development only; defaults off. |
 
@@ -165,10 +173,10 @@ The commented Gemini/GCP and legacy OpenRouter variables in `.env.example` are
 unused. Never expose credentials with `NEXT_PUBLIC_`. `.env.local`, databases,
 and build output are ignored by Git.
 
-## Data author workflow
+## Updating the dataset
 
-Maintain the contract in `docs/DATA_CONTRACT.md` and vocabulary in `config/`.
-After authored changes, run `npm run data:check`, fix its per-file errors, then
+Dataset changes must follow `docs/DATA_CONTRACT.md` and `config/vocabulary.json`.
+After editing the dataset, run `npm run data:check`, fix its per-file errors, then
 `npm run data:ingest` and refresh the browser. Warnings do not prevent ingest.
 Failed validation or insertion leaves the existing imported data intact.
 Successful ingest replaces imported tables atomically and keeps users,
@@ -221,15 +229,14 @@ test another port use `npm run start -- --port 3003`. Production sessions use
 secure cookies; deployed instances require HTTPS. Build-time font downloads
 need network access on the first build; the mock AI and runtime fonts use no
 external services. Use a persistent writable disk for SQLite in a single Node
-process. Deployment is outside this milestone.
+process.
 
 The templates validate with `DATA_DIR=docs/data-templates`. The deliberately
 broken fixture `tests/fixtures/broken` must fail with file/field errors.
 `tests/fixtures/main` covers supported 100% vs 70%, the EUR 1,500 derivation gap,
 old email exclusion, confirmed/reversed precedents and the what-if downgrade.
 
-Real LLMs, extraction, search and embeddings are not implemented. Aikido audit
-and deployment remain team follow-ups. See `docs/ARCHITECTURE.md` for the seams
-and `docs/MILESTONE_1_VERIFICATION.md` for the historical milestone verification
-record, including its then-pending browser walkthrough. That record is not a
-report of the current test suite's latest results.
+Real LLMs, extraction, search and embeddings are not implemented. An Aikido audit
+and deployment have not been completed. See `docs/ARCHITECTURE.md` for the system
+design and `docs/MILESTONE_1_VERIFICATION.md` for the historical verification
+record. Run the checks above to verify your checkout.
