@@ -88,11 +88,11 @@ export function analyzeCase(input: EngineInput): Analysis {
     const confirmed = p.outcome.status === "confirmed" && (!p.outcome.confirmed_at || Date.parse(p.outcome.confirmed_at) <= Date.parse(input.asOf));
     return { ...p, matchReasons: [...(sameCause ? ["same_root_cause"] : []), ...shared.map(t => `shared_topic:${t}`), ...(sameCountry ? ["same_country"] : [])], differences: [...(!sameCountry ? [`other_country:${p.country}`] : []), ...(rule.root_cause_hypothesis && !sameCause ? [`other_root_cause:${p.root_cause}`] : [])], flags, score: (sameCause ? 3 : 0) + shared.length + (sameCountry ? 1 : 0), confirmed };
   }).sort((a,b) => b.score - a.score || Number(b.confirmed) - Number(a.confirmed) || a.id.localeCompare(b.id));
-  const precedents = rankedPrecedents.slice(0,3).map(({ score: _score, confirmed: _confirmed, ...p }) => p);
+  const precedents = rankedPrecedents.slice(0,3).map(({ score, confirmed, ...p }) => { void score; void confirmed; return p; });
   const experts = input.people.filter(p => p.active && p.organisation === "SDWORX" && p.role !== "client_hr" && p.id !== input.currentUserId).map(person => {
     const owner = selected?.kind === "document" && selected.data.owner === person.id, responsibilities = (person.responsibilities || []).filter(t => input.playbook.expert_topics.includes(t)), country = person.countries?.includes(input.client.country), precedent = rankedPrecedents.some(p => p.confirmed && !p.flags.length && p.root_cause === rule.root_cause_hypothesis && p.decided_by === person.id);
     return { person, reasons: [...(owner ? ["owns_current_procedure"] : []), ...responsibilities.map(t => `responsibility:${t}`), ...(country ? ["same_country"] : []), ...(precedent ? ["resolved_confirmed_precedent"] : [])], questionKey: rule.expert_question, score: (owner ? 3 : 0) + responsibilities.length * 2 + (country ? 1 : 0) + (precedent ? 3 : 0) };
-  }).filter(p => p.score > 0).sort((a,b) => b.score - a.score || a.person.id.localeCompare(b.person.id)).slice(0,3).map(({ score: _score, ...p }) => p);
+  }).filter(p => p.score > 0).sort((a,b) => b.score - a.score || a.person.id.localeCompare(b.person.id)).slice(0,3).map(({ score, ...p }) => { void score; return p; });
   return { analysisVersion: 1, asOf: input.asOf, excludedSourceIds: [...new Set(input.excludedSourceIds)].sort(), context: { case: input.case, client: input.client, employee: input.employee }, findings, comparisons, derivations, outcome, nextStep: { id: rule.next_step, label: step.label, ownerRole: step.owner_role, reasons: [outcome] }, procedure, gaps, precedents, experts, evidenceIndex };
 }
 export function diffAnalyses(base: Analysis, changed: Analysis): AnalysisDiff {
