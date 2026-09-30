@@ -1,8 +1,10 @@
 import { loadFlow, type FlowPageProps } from "../../../../server/services/flow.ts";
+import { draftClientReply } from "../../../../ai/tasks/drafts.ts";
 import { FlowFrame } from "../../../../ui/FlowFrame.tsx";
-import { flowCopy } from "../../../../ui/copy.ts";
+import { Respond } from "../../../../ui/Respond.tsx";
 export const dynamic = "force-dynamic";
 export default async function Page(props: FlowPageProps) {
   const data = await loadFlow(props);
-  return <FlowFrame data={data} step="respond"><h1>{flowCopy.reply}</h1></FlowFrame>;
+  const reply = await draftClientReply(data.result.analysis);
+  return <FlowFrame data={data} step="respond"><Respond data={data} reply={reply} /></FlowFrame>;
 }
