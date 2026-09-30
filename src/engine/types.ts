@@ -1,0 +1,32 @@
+import type { Assertion, Source } from "../data/normalized.ts";
+import type { CaseData, Client, Employee, FactValue, Person } from "../data/schemas.ts";
+import type { Precedent } from "../server/repo/index.ts";
+export type MatchRule = { kind: string; types: string[]; statuses?: string[] };
+export type Check = { id: string; question: string; attribute: string; period: string; authoritative: MatchRule[]; supporting: MatchRule[] };
+export type Playbook = {
+  id: string; version: number; checks: Check[];
+  comparisons: { id: string; label: string; left: string; right: string; outcomes: { match: string; mismatch: string } }[];
+  derivations: { id: string; label: string; function: string; inputs: Record<string, string> }[];
+  outcome_rules: Record<string, { root_cause_hypothesis: string | null; next_step: string; expert_question: string | null }>;
+  next_steps: Record<string, { label: string; owner_role: string; needs_procedure: boolean }>;
+  procedure_topics: string[]; expert_topics: string[];
+};
+export type State = "SUPPORTED" | "INDICATION" | "CONFLICTING" | "INSUFFICIENT";
+export type EvidenceRef = { evidenceId: string; reasons: string[] };
+export type Finding = { id: string; question: string; attribute: string; state: State; value: FactValue | null; reasons: string[]; authoritative: EvidenceRef[]; supporting: EvidenceRef[]; contradicting: EvidenceRef[]; ignored: EvidenceRef[]; notApplicable: EvidenceRef[] };
+export type Evidence = { assertion: Assertion; source: Source; sameOriginAs: string[] };
+export type Derivation = { id: string; status: "explains_paid_amount" | "does_not_explain" | "not_established"; reasons: string[]; evidenceIds: string[]; reference?: number; processedRegime?: number; paid?: number; expectedAtProcessed?: number; difference?: number; expectedAtAgreed?: number; gap?: number; reportedGap?: number };
+export type Analysis = {
+  analysisVersion: 1; asOf: string; excludedSourceIds: string[];
+  context: { case: CaseData; client: Client; employee: Employee };
+  findings: Finding[]; comparisons: { id: string; label: string; left: string; right: string; result: "match" | "mismatch" | "not_established"; reasons: string[] }[];
+  derivations: Derivation[]; outcome: string;
+  nextStep: { id: string; label: string; ownerRole: string; reasons: string[] };
+  procedure: { selected: Source | null; notApplicable: { source: Source; reasons: string[] }[] };
+  gaps: { code: string; findingId?: string; evidenceIds: string[] }[];
+  precedents: (Precedent & { matchReasons: string[]; differences: string[]; flags: string[] })[];
+  experts: { person: Person; reasons: string[]; questionKey: string | null }[];
+  evidenceIndex: Record<string, Evidence>;
+};
+export type EngineInput = { case: CaseData; client: Client; employee: Employee; assertions: Assertion[]; sources: Source[]; precedents: Precedent[]; people: Person[]; playbook: Playbook; asOf: string; currentUserId: string; excludedSourceIds: string[] };
+export type AnalysisDiff = { findings: { id: string; before: { state: State; value: FactValue | null }; after: { state: State; value: FactValue | null } }[]; outcome: { before: string; after: string } | null; nextStep: { before: string; after: string } | null };
