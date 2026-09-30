@@ -75,6 +75,11 @@ export class Repository {
     return payload<CorrectionState>(row) || { stage: "none" as const, proposedBy: null };
   }
   hasData() { return Boolean(this.db.prepare("SELECT id FROM cases LIMIT 1").get()); }
+  appendDecision(user: User, decision: Decision, correction: CorrectionState | null) {
+    if (!this.getCase(user, decision.case_id) || decision.actor_id !== user.id) throw new Error("Decision outside user scope");
+    this.db.prepare("INSERT INTO decisions (id, case_id, actor_id, action, rationale, at) VALUES (?, ?, ?, ?, ?, ?)").run(decision.id, decision.case_id, decision.actor_id, decision.action, decision.rationale, decision.at);
+    if (correction) this.db.prepare("INSERT INTO case_status_events (id, case_id, status, payload) VALUES (?, ?, ?, ?)").run(decision.id, decision.case_id, correction.stage, JSON.stringify(correction));
+  }
 }
 export type Decision = { id: string; case_id: string; actor_id: string; action: string; rationale: string; at: string };
 export type CorrectionState = { stage: "none" | "proposed" | "approved" | "executed" | "confirmed"; proposedBy: string | null };
