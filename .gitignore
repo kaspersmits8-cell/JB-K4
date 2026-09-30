@@ -1,0 +1,12 @@
+# Local environment configuration and API keys
+.env
+.env.*
+!.env.example
+node_modules/
+.next/
+.local/
+coverage/
+*.tsbuildinfo
+*.db
+*.db-shm
+*.db-wal

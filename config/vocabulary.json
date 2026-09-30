@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "question_types": {
+    "payslip_dispute": "An employee, via client HR, disputes an amount on a payslip"
+  },
+  "record_types": {
+    "contract_change": "Approved change to contract terms (e.g. work regime), with a validity period",
+    "hr_master_data": "Master data held for the employee (e.g. full-time reference salary)",
+    "payroll_input": "Values payroll actually used for a pay period",
+    "payslip": "Result of the payroll calculation for a pay period",
+    "time_registration": "Registered time or absence. Only add if a playbook check needs it"
+  },
+  "document_types": {
+    "procedure": "How to do something (step by step)",
+    "policy": "What is allowed or required",
+    "email": "Email message",
+    "chat_message": "Teams or other chat message",
+    "knowledge_note": "Short note capturing expert knowledge"
+  },
+  "statuses": {
+    "approved": "Formally approved",
+    "processed": "Used in a payroll run (records)",
+    "pending": "Submitted, not yet approved (records)",
+    "rejected": "Rejected (records)",
+    "draft": "Work in progress (documents)",
+    "unverified": "Nobody confirmed this (typical for emails and chats)",
+    "superseded": "Replaced by a newer version"
+  },
+  "attributes": {
+    "work_regime_pct": { "label": "Work regime", "unit": "%", "type": "number" },
+    "fulltime_reference_salary_gross": { "label": "Full-time reference salary (gross, monthly)", "unit": "EUR", "type": "number" },
+    "base_salary_gross_paid": { "label": "Base salary paid (gross)", "unit": "EUR", "type": "number" },
+    "unpaid_absence_days": { "label": "Unpaid absence", "unit": "days", "type": "number" }
+  },
+  "topics": {
+    "payslip": "Payslip content and questions",
+    "salary": "Salary levels and changes",
+    "work_regime": "Full-time / part-time regimes and changes",
+    "payroll_correction": "Correcting an already processed payroll",
+    "absence": "Absence and leave"
+  },
+  "root_causes": {
+    "work_regime_not_updated": "An approved regime change was not reflected in payroll input",
+    "salary_change_not_processed": "An approved salary change was not processed",
+    "absence_miscoded": "Absence registered with the wrong code",
+    "processed_correctly": "Payroll matches the approved data; the expectation was wrong",
+    "other": "Other"
+  },
+  "outcome_statuses": {
+    "pending": "Not yet known",
+    "confirmed": "Outcome confirmed as correct",
+    "reversed": "Decision was later reversed",
+    "complaint_reopened": "A later complaint reopened the case"
+  },
+  "roles": {
+    "consultant": "SD Worx payroll consultant",
+    "payroll_lead": "SD Worx payroll lead (approves corrections)",
+    "expert": "SD Worx subject-matter expert",
+    "client_hr": "HR contact at a client (external)"
+  },
+  "visibility": {
+    "internal": "Only SD Worx staff",
+    "client_shareable": "May be quoted to the client"
+  },
+  "channels": ["ticket", "email", "phone"],
+  "timeline_event_types": [
+    "received", "forwarded", "analysis", "decision", "reply_sent", "confirmation_requested",
+    "correction_proposed", "correction_approved", "correction_executed", "outcome_confirmed",
+    "complaint", "reopened"
+  ],
+  "employee_categories": ["white_collar", "blue_collar"],
+  "countries": ["BE", "NL", "LU", "FR", "DE", "UK"]
+}

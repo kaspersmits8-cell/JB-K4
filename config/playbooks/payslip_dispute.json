@@ -1,0 +1,92 @@
+{
+  "id": "payslip_dispute",
+  "version": 1,
+  "label": "Payslip dispute",
+  "subject": "employee",
+  "checks": [
+    {
+      "id": "agreed_regime",
+      "question": "Which work regime was agreed for the disputed period?",
+      "attribute": "work_regime_pct",
+      "period": "disputed",
+      "authoritative": [
+        { "kind": "record", "types": ["contract_change"], "statuses": ["approved"] }
+      ],
+      "supporting": [
+        { "kind": "record", "types": ["hr_master_data"], "statuses": ["approved", "pending"] },
+        { "kind": "document", "types": ["email", "chat_message", "knowledge_note"] }
+      ]
+    },
+    {
+      "id": "processed_regime",
+      "question": "Which work regime did payroll process for the disputed period?",
+      "attribute": "work_regime_pct",
+      "period": "disputed",
+      "authoritative": [
+        { "kind": "record", "types": ["payroll_input"], "statuses": ["processed"] }
+      ],
+      "supporting": [
+        { "kind": "record", "types": ["payslip"], "statuses": ["processed"] }
+      ]
+    },
+    {
+      "id": "reference_salary",
+      "question": "What is the full-time reference salary for the disputed period?",
+      "attribute": "fulltime_reference_salary_gross",
+      "period": "disputed",
+      "authoritative": [
+        { "kind": "record", "types": ["hr_master_data", "contract_change"], "statuses": ["approved"] }
+      ],
+      "supporting": [
+        { "kind": "document", "types": ["email", "chat_message"] }
+      ]
+    },
+    {
+      "id": "paid_base_salary",
+      "question": "What base salary was paid for the disputed period?",
+      "attribute": "base_salary_gross_paid",
+      "period": "disputed",
+      "authoritative": [
+        { "kind": "record", "types": ["payslip"], "statuses": ["processed"] }
+      ],
+      "supporting": [
+        { "kind": "record", "types": ["payroll_input"], "statuses": ["processed"] }
+      ]
+    }
+  ],
+  "comparisons": [
+    {
+      "id": "regime_agreed_vs_processed",
+      "label": "Agreed vs processed work regime",
+      "left": "agreed_regime",
+      "right": "processed_regime",
+      "outcomes": { "match": "regime_consistent", "mismatch": "regime_mismatch" }
+    }
+  ],
+  "derivations": [
+    {
+      "id": "regime_explains_paid_amount",
+      "label": "Does the processed regime explain the paid amount?",
+      "function": "regimeExplainsPaidAmount",
+      "inputs": {
+        "reference": "reference_salary",
+        "processedRegime": "processed_regime",
+        "agreedRegime": "agreed_regime",
+        "paid": "paid_base_salary"
+      }
+    }
+  ],
+  "outcome_rules": {
+    "regime_mismatch": { "root_cause_hypothesis": "work_regime_not_updated", "next_step": "start_correction_review", "expert_question": "confirm_correction_approach" },
+    "regime_consistent": { "root_cause_hypothesis": "processed_correctly", "next_step": "explain_to_client", "expert_question": null },
+    "not_established": { "root_cause_hypothesis": null, "next_step": "request_confirmation", "expert_question": "confirm_missing_fact" }
+  },
+  "next_steps": {
+    "start_correction_review": { "label": "Have the payroll lead review a correction under the current procedure", "owner_role": "payroll_lead", "needs_procedure": true },
+    "explain_to_client": { "label": "Explain to the client why the payslip matches the approved data", "owner_role": "consultant", "needs_procedure": false },
+    "request_confirmation": { "label": "Get the missing fact confirmed before answering", "owner_role": "consultant", "needs_procedure": false }
+  },
+  "procedure_topics": ["payroll_correction"],
+  "expert_topics": ["work_regime", "payroll_correction"],
+  "precedent_match": { "same_question_type": true, "features": ["root_cause_hypothesis", "topics", "country"] }
+}
