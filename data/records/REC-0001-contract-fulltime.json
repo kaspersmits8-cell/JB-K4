@@ -1,0 +1,24 @@
+{
+  "id": "REC-0001",
+  "type": "contract_change",
+  "system": "Employment contract CTR-2019-0412 (client HR file)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2019-09-01",
+  "valid_to": "2026-02-28",
+  "known_at": "2019-09-01T00:00:00Z",
+  "status": "approved",
+  "visibility": "client_shareable",
+  "derived_from": [],
+  "facts": [
+    {
+      "attribute": "work_regime_pct",
+      "value": 100
+    },
+    {
+      "attribute": "fulltime_reference_salary_gross",
+      "value": 5000
+    }
+  ],
+  "note": "Original open-ended white-collar contract: full-time, 38h/week, EUR 5,000 gross/month. valid_to 2026-02-28 follows from amendment AMD-2026-0017 (70% from 2026-03-01)."
+}

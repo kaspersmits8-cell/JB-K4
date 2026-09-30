@@ -1,0 +1,33 @@
+{
+  "id": "CASE-0002",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0003",
+  "employee_id": "E-0005",
+  "channel": "ticket",
+  "opened_at": "2025-10-08T00:00:00Z",
+  "reporter_id": "P-0012",
+  "question_text": "Employee reports a lower salary than agreed after a regime change.",
+  "disputed_period": {
+    "from": "2025-09-01",
+    "to": "2025-09-30"
+  },
+  "topics": [
+    "payslip",
+    "work_regime",
+    "payroll_correction"
+  ],
+  "resolution": {
+    "root_cause": "work_regime_not_updated",
+    "summary": "A reduced regime was agreed from a later month but applied one month early because the HR tool entry defaulted to the month of entry. The signed amendment was used as leading source, the effective date was corrected, and a retro correction plus an off-cycle payment were processed.",
+    "decided_by": "P-0003",
+    "decided_at": "2025-10-08T00:00:00Z",
+    "source_ids": [
+      "DOC-0001"
+    ]
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Correction confirmed as correct; no follow-up complaint."
+  }
+}

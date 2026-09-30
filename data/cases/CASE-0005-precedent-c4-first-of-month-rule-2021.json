@@ -1,0 +1,32 @@
+{
+  "id": "CASE-0005",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0004",
+  "employee_id": "E-0009",
+  "channel": "ticket",
+  "opened_at": "2021-02-15T00:00:00Z",
+  "reporter_id": "P-0013",
+  "question_text": "Employee questions the start date of a regime change on the payslip.",
+  "disputed_period": {
+    "from": "2021-01-01",
+    "to": "2021-01-31"
+  },
+  "topics": [
+    "payslip",
+    "work_regime"
+  ],
+  "resolution": {
+    "root_cause": "processed_correctly",
+    "summary": "A regime change was processed from the first day of the month in which it was entered, following the generic guideline of that time. The payslip was kept as processed.",
+    "decided_by": "P-0007",
+    "decided_at": "2021-02-15T00:00:00Z",
+    "source_ids": [
+      "DOC-0002"
+    ]
+  },
+  "outcome": {
+    "status": "pending",
+    "note": "No feedback recorded. Based on a guideline that has since been superseded."
+  }
+}

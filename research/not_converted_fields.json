@@ -1,0 +1,94 @@
+{
+  "note": "Source fields with no place in the data contract. Not loaded by the app.",
+  "client_policies": {
+    "leading_time_source_policy": "Protime processed timesheets are leading for paid hours; badge data is used to verify disputes.",
+    "leading_regime_source_policy": "Signed contract (amendment) is leading for working regime and effective dates.",
+    "payroll_calendar": {
+      "2026-01": {
+        "closing_date": "2026-01-26",
+        "payment_date": "2026-01-30",
+        "payslip_published": "2026-02-01"
+      },
+      "2026-02": {
+        "closing_date": "2026-02-18",
+        "payment_date": "2026-02-27",
+        "payslip_published": "2026-03-01"
+      }
+    },
+    "off_cycle_payment_allowed": true,
+    "off_cycle_requires": "client HR approval",
+    "previous_consultant": "tom.wouters",
+    "portfolio_handover_date": "2026-01-05"
+  },
+  "employee_contacts": {
+    "line_manager": {
+      "name": "Koen Peeters",
+      "email": "koen.peeters@stridesports.example"
+    },
+    "hire_date": "2019-09-01"
+  },
+  "contract_details": {
+    "schedule": "Flexible hours, Mon-Fri, 7.6h/day, core hours 09:30-15:30, 30 min unpaid break",
+    "telework_policy": "Structural telework max. 1 day/week, registered in HR tool",
+    "amendment_new_schedule": "Mon, Tue, Thu full days (7.6h) + Wed morning (3.8h); Friday off",
+    "amendment_new_weekly_hours": 26.6,
+    "amendment_new_gross_monthly_salary": 3500.0,
+    "e_signature": {
+      "envelope_id": "ESIG-8841-2201",
+      "status": "completed",
+      "signed_by_employer": {
+        "name": "Melanie De Vos",
+        "date": "2026-01-07"
+      },
+      "signed_by_employee": {
+        "name": "Piet Janssens",
+        "date": "2026-01-08"
+      }
+    }
+  },
+  "hr_tool_extras": {
+    "telework_agreement": {
+      "type": "structural",
+      "day": "Wednesday",
+      "approved_by": "Koen Peeters",
+      "since": "2024-03-01"
+    },
+    "manager_approvals": [
+      {
+        "id": "APR-7781",
+        "date": "2025-12-11",
+        "type": "timesheet correction",
+        "detail": "Forgotten clock-out on 2025-12-10, set to 17:04 based on badge data",
+        "approved_by": "Koen Peeters"
+      },
+      {
+        "id": "APR-7803",
+        "date": "2025-12-15",
+        "type": "vacation",
+        "detail": "Vacation 2025-12-29 to 2025-12-31 (3 days)",
+        "approved_by": "Koen Peeters"
+      }
+    ]
+  },
+  "ticket_extras": {
+    "ticket_id": "SDW-2026-004187",
+    "priority": "high",
+    "deadline": {
+      "next_payroll_closing": "2026-02-18",
+      "reason": "Fix before February closing to avoid a second incorrect payslip"
+    },
+    "channel_assumption": "Client service portal (assumed - validate with SD Worx whether this is MySDWorx)",
+    "privacy_note": "Emails are only available because the client attached them to this ticket. The agent must not access client mailboxes."
+  },
+  "email_extras": {
+    "cc_on_E1_E2": "koen.peeters (line manager, not in people.json)",
+    "sender_of_E1_E3_and_recipient_of_E2": "Piet Janssens (employee E-0001; employees cannot be from/to person ids)"
+  },
+  "knowledge_extras": {
+    "D1_joint_committee": [
+      "PC 200"
+    ],
+    "D1_client_scope_text": "all BE clients",
+    "D3_owner_in_source": "nl.payroll.team (a team, not a person)"
+  }
+}

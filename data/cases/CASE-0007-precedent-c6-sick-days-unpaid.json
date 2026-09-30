@@ -1,0 +1,31 @@
+{
+  "id": "CASE-0007",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0005",
+  "employee_id": "E-0010",
+  "channel": "ticket",
+  "opened_at": "2025-09-19T00:00:00Z",
+  "reporter_id": "P-0014",
+  "question_text": "Employee reports that sick days were not paid.",
+  "disputed_period": {
+    "from": "2025-08-01",
+    "to": "2025-08-31"
+  },
+  "topics": [
+    "payslip",
+    "absence",
+    "payroll_correction"
+  ],
+  "resolution": {
+    "root_cause": "absence_miscoded",
+    "summary": "Sick days were registered as unpaid absence because the medical certificate had not been registered. After registration of the certificate, a retro correction was processed.",
+    "decided_by": "P-0003",
+    "decided_at": "2025-09-19T00:00:00Z",
+    "source_ids": []
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Retro correction confirmed."
+  }
+}

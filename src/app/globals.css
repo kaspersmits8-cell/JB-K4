@@ -1,4 +1,49 @@
 @import "tailwindcss";
+
+/* Route and tab snapshots fade only when their identity changes. */
+::view-transition { pointer-events: none; }
+::view-transition-old(root) { display: none; }
+::view-transition-new(root) { animation: none; }
+::view-transition-group(.quick-fade) {
+  animation-duration: 160ms;
+  animation-timing-function: ease-out;
+}
+::view-transition-old(.quick-fade) {
+  animation: quick-fade-out 100ms ease-out both;
+}
+::view-transition-new(.quick-fade) {
+  animation: quick-fade-in 160ms ease-out both;
+}
+@keyframes quick-fade-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes quick-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+/* Also cover the first document load, before React can take a snapshot. */
+.page-transition { animation: quick-fade-in 160ms ease-out; }
+
+/* Keep native disclosure semantics and URL state, including during closing. */
+@supports (interpolate-size: allow-keywords) and selector(details::details-content) {
+  details { interpolate-size: allow-keywords; }
+  details::details-content {
+    height: 0;
+    opacity: 0;
+    overflow: clip;
+    transition: height 180ms ease-out, opacity 140ms ease-out,
+      content-visibility 180ms allow-discrete;
+  }
+  details[open]::details-content { height: auto; opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition { animation: none; }
+  details::details-content { transition: none; }
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
+}
+
 :root {
   color-scheme: light;
   --paper: #FAF8F3;
@@ -79,15 +124,10 @@ label { font-size: .95rem; font-weight: 500; }
 .topbar { background: var(--card); border-bottom: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1rem 2rem; }
 .brand { font-size: 1.15rem; font-weight: 500; letter-spacing: -.025em; color: var(--ink); text-decoration: none; }
 .brand-logo { display: block; width: 12.5rem; max-width: 100%; height: auto; }
+.inbox-link { display: inline-flex; align-items: center; justify-content: center; width: 2.75rem; height: 2.75rem; flex-shrink: 0; color: var(--indigo); border-radius: .35rem; text-decoration: none; }
+.inbox-link:hover { background: var(--paper); }
 .eyebrow { color: var(--muted); font-size: .875rem; font-weight: 500; letter-spacing: .04em; }
 .panel { background: var(--card); border: 1px solid var(--line); border-radius: .7rem; padding: 1.5rem; min-width: 0; }
-.key-card { border-left: 5px solid var(--line); padding: 1.5rem; background: var(--card); border-radius: .5rem; }
-.dossier-grid { display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr); gap: 1.5rem; align-items: start; }
-.finding-list { margin-top: 1rem; }
-.finding { border-top: 1px solid var(--line); padding: 1rem .7rem; display: flex; flex-direction: column; gap: .8rem; }
-.finding.selected { background: var(--paper); box-shadow: inset 3px 0 var(--indigo); }
-.finding-select { color: var(--ink); border: 0; background: transparent; padding: 0; text-align: left; display: flex; flex-wrap: wrap; align-items: center; gap: .7rem; width: 100%; }
-.finding-select > span:first-child { flex-basis: 100%; font-weight: 500; }
 .badge { display: inline-flex; gap: .35rem; align-items: center; padding: .2rem .55rem; background: var(--paper); color: var(--ink); border-radius: .3rem; font-size: .875rem; font-weight: 500; }
 .badge.supported { background: var(--supported-bg); color: var(--supported); }
 .badge.indication { background: var(--indication-bg); color: var(--indication); }
@@ -96,11 +136,9 @@ label { font-size: .95rem; font-weight: 500; }
 .chips { display: flex; gap: .4rem; flex-wrap: wrap; }
 .chip { font-size: .875rem; background: var(--paper); color: var(--muted); border-radius: .3rem; padding: .25rem .45rem; overflow-wrap: anywhere; }
 .source-row { border-top: 1px solid var(--line); margin-top: .65rem; padding: .85rem 0; display: flex; flex-direction: column; gap: .7rem; }
-.source-panel h3, h4, h5, h6 { margin-top: .5rem; }
 .text-button { padding: 0; text-align: left; background: transparent; border: none; color: var(--indigo); text-decoration: underline; text-underline-offset: .2em; overflow-wrap: anywhere; }
 .check-label { display: flex; align-items: center; gap: .5rem; font-weight: 400; font-size: .875rem; }
 .muted, .asof, .small { font-size: .875rem; color: var(--muted); }
-.muted-sources { background: var(--paper); padding: .75rem; border-radius: .3rem; }
 .whatif { position: sticky; top: 0; z-index: 10; display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; padding: .85rem 2rem; background: var(--paper); color: var(--ink); border-bottom: 1px solid var(--line); }
 .change { color: var(--ink); font-size: .875rem; font-weight: 500; }
 .table-wrap { overflow-x: auto; }
@@ -108,7 +146,6 @@ table { font-variant-numeric: tabular-nums; border-collapse: collapse; width: 10
 caption { text-align: left; font-weight: 500; padding-bottom: 1rem; }
 th, td { border-bottom: 1px solid var(--line); padding: .85rem; vertical-align: top; }
 th { color: var(--muted); font-size: .875rem; }
-.derivation { font-variant-numeric: tabular-nums; font-size: 1rem; }
 .tabs { display: flex; gap: .4rem; flex-wrap: wrap; border-bottom: 1px solid var(--line); padding-bottom: .75rem; }
 .tabs [aria-selected=true] { color: var(--card); background: var(--indigo); border-color: var(--indigo); }
 .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
@@ -118,7 +155,6 @@ th { color: var(--muted); font-size: .875rem; }
 .notice { background: var(--paper); border: 1px solid var(--line); padding: 1rem; border-radius: .4rem; }
 .uncertainty { border-left: 3px solid var(--muted); background: var(--paper); padding: .8rem; }
 .draft-sentence { padding: .5rem .8rem; }
-.citation-chips { display: flex; gap: .4rem; margin-top: .5rem; font-size: .875rem; }
 .timeline { list-style: none; border-left: 2px solid var(--line); padding-left: 1.2rem; display: flex; flex-direction: column; gap: 1.4rem; }
 .timeline time { font-size: .875rem; font-weight: 500; color: var(--muted); }
 .source-dialog { margin: auto 0 auto auto; width: min(44rem, 95vw); height: 100dvh; max-height: 100dvh; padding: 2rem; border: 0; border-left: 1px solid var(--line); background: var(--card); color: var(--ink); }
@@ -138,12 +174,23 @@ code { font-size: .875rem; overflow-wrap: anywhere; }
 blockquote { border-left: 3px solid var(--line); padding-left: 1rem; line-height: 1.6; }
 summary { cursor: pointer; font-weight: 500; }
 ul { padding-left: 1.2rem; list-style: disc; }
-@media (max-width: 1023px) { .dossier-grid { grid-template-columns: 1fr; } }
 @media (max-width: 640px) { .shell { padding: 1.4rem .8rem 3rem; }.topbar { padding: 1rem; flex-wrap: wrap; }.topbar .row { flex-wrap: wrap; }.panel { padding: 1rem; }.metadata { grid-template-columns: 1fr; }.metadata dt { font-weight: 500; }.source-dialog { padding: 1rem; }.whatif { padding: .7rem; } }
 
 }
 @layer components {
 .flow-shell { max-width: 1120px; }
+.flow-shell:has(.answer-actions) { padding-bottom: calc(7rem + env(safe-area-inset-bottom, 0px)); }
+.answer-actions {
+  position: fixed;
+  z-index: 20;
+  inset-inline: 0;
+  bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  justify-content: center;
+  padding-inline: 1rem;
+  pointer-events: none;
+}
+.answer-actions > a { pointer-events: auto; }
 .stepper { display: flex; gap: 1.5rem; border-bottom: 1px solid var(--line); padding-bottom: 1.2rem; }
 .stepper a { display: inline-flex; gap: .6rem; align-items: center; color: var(--muted); text-decoration: none; }
 .stepper a[aria-current] { color: var(--indigo); font-weight: 500; }
@@ -171,4 +218,76 @@ ul { padding-left: 1.2rem; list-style: disc; }
 .evidence-group { margin-top: 1rem; padding-left: 1rem; border-left: 2px solid var(--line); }
 .source-row { align-items: flex-start; gap: .35rem; }
 .claim { border-bottom: 1px solid var(--line); padding-bottom: 1rem; }
+}
+@layer components {
+textarea.ask-field {
+  margin-top: .75rem;
+  padding: 1rem 1.15rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, color-mix(in srgb, var(--paper) 55%, var(--card)), var(--card));
+  color: var(--ink);
+  font-weight: 400;
+  line-height: 1.65;
+  resize: vertical;
+  min-height: 7.5rem;
+  box-shadow: inset 0 2px 4px color-mix(in srgb, var(--ink) 4%, transparent), 0 2px 5px color-mix(in srgb, var(--ink) 3%, transparent);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+textarea.ask-field:focus-visible {
+  border-color: var(--indigo);
+  outline: 2px solid var(--indigo);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--indigo) 9%, transparent), inset 0 1px 2px color-mix(in srgb, var(--ink) 3%, transparent);
+}
+.check-button {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  max-width: 100%;
+  min-height: 3rem;
+  padding: .8rem 1.2rem;
+  border: 1px solid var(--indigo);
+  border-radius: .85rem;
+  line-height: 1.4;
+  text-decoration: none;
+  background: linear-gradient(180deg, var(--indigo), color-mix(in srgb, var(--indigo) 88%, var(--ink)));
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--card) 28%, transparent), 0 4px 10px color-mix(in srgb, var(--indigo) 18%, transparent);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.check-button > * { position: relative; z-index: 1; }
+.check-button svg { flex-shrink: 0; }
+.check-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 20%, color-mix(in srgb, var(--card) 18%, transparent) 50%, transparent 80%);
+  transform: translateX(-120%);
+  animation: check-sheen 1.4s ease-in-out .3s;
+}
+.check-button:hover, .check-button:focus-visible {
+  background: linear-gradient(180deg, var(--indigo), color-mix(in srgb, var(--indigo) 88%, var(--ink)));
+  text-decoration: none;
+  transform: translateY(-1px);
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--card) 35%, transparent), 0 6px 16px color-mix(in srgb, var(--indigo) 24%, transparent);
+}
+.check-button:hover::before, .check-button:focus-visible::before {
+  animation: none;
+  transform: translateX(120%);
+  transition: transform .9s ease;
+}
+.check-button:active { transform: translateY(0); }
+@keyframes check-sheen {
+  from { transform: translateX(-120%); }
+  to { transform: translateX(120%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  textarea.ask-field, .check-button, .check-button::before { animation: none; transition: none; }
+  .check-button:hover, .check-button:focus-visible, .check-button:active { transform: none; }
+  .check-button::before { display: none; }
+}
 }

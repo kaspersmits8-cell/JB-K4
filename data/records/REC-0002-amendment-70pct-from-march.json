@@ -1,0 +1,21 @@
+{
+  "id": "REC-0002",
+  "type": "contract_change",
+  "system": "E-signature platform (envelope ESIG-8841-2201)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-03-01",
+  "valid_to": null,
+  "known_at": "2026-02-02T08:14:00Z",
+  "status": "approved",
+  "approved_by": "P-0010",
+  "visibility": "client_shareable",
+  "derived_from": [],
+  "facts": [
+    {
+      "attribute": "work_regime_pct",
+      "value": 70
+    }
+  ],
+  "note": "Contract amendment AMD-2026-0017: reduction to 70% (26.6h/week), effective 2026-03-01. Signed by employer 2026-01-07 and employee 2026-01-08. Shared with SD Worx as attachment to the ticket."
+}

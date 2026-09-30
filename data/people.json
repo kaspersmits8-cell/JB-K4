@@ -1,0 +1,147 @@
+[
+  {
+    "id": "P-0001",
+    "name": "Jan Verstraeten",
+    "email": "jan.verstraeten@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Payroll BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "payslip"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0002",
+    "name": "Sarah Claes",
+    "email": "sarah.claes@example.com",
+    "organisation": "SDWORX",
+    "role": "expert",
+    "team": "Payroll BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "work_regime",
+      "payroll_correction"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0003",
+    "name": "Ines Maes",
+    "email": "ines.maes@example.com",
+    "organisation": "SDWORX",
+    "role": "expert",
+    "team": "Payroll BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "work_regime",
+      "payroll_correction",
+      "absence"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0004",
+    "name": "Tom Wouters",
+    "email": "tom.wouters@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Implementation (formerly Payroll BE, Stride Sports portfolio until 2026-01-05)",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [],
+    "active": true
+  },
+  {
+    "id": "P-0005",
+    "name": "Lucas Dierckx",
+    "email": "lucas.dierckx@example.com",
+    "organisation": "SDWORX",
+    "role": "payroll_lead",
+    "team": "Payroll BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [
+      "payroll_correction"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0006",
+    "name": "Femke van Dijk",
+    "email": "femke.vandijk@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Payroll NL",
+    "countries": [
+      "NL"
+    ],
+    "responsibilities": [
+      "payslip",
+      "work_regime"
+    ],
+    "active": true
+  },
+  {
+    "id": "P-0007",
+    "name": "Former consultant (name unknown)",
+    "email": "former.consultant@example.com",
+    "organisation": "SDWORX",
+    "role": "consultant",
+    "team": "Payroll BE",
+    "countries": [
+      "BE"
+    ],
+    "responsibilities": [],
+    "active": false
+  },
+  {
+    "id": "P-0010",
+    "name": "Melanie De Vos",
+    "email": "melanie.devos@example.com",
+    "organisation": "CL-0001",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0011",
+    "name": "HR contact Oranje Logistics",
+    "email": "hr.oranjelogistics@example.com",
+    "organisation": "CL-0002",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0012",
+    "name": "HR contact Velo Parts",
+    "email": "hr.veloparts@example.com",
+    "organisation": "CL-0003",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0013",
+    "name": "HR contact Meubel Mertens",
+    "email": "hr.meubelmertens@example.com",
+    "organisation": "CL-0004",
+    "role": "client_hr",
+    "active": true
+  },
+  {
+    "id": "P-0014",
+    "name": "HR contact Bakkerij Goossens",
+    "email": "hr.bakkerijgoossens@example.com",
+    "organisation": "CL-0005",
+    "role": "client_hr",
+    "active": true
+  }
+]

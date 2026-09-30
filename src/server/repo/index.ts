@@ -2,6 +2,7 @@ import type { SqliteDatabase } from "../db.ts";
 import type { Client, Person, Employee, CaseData } from "../../data/schemas.ts";
 import type { Source, Assertion } from "../../data/normalized.ts";
 import { isSafeSummary } from "../../data/check.ts";
+import { localUser, localUserId } from "../local-login.ts";
 export type Role = "consultant" | "payroll_lead";
 export type User = { id: string; email: string; personId: string; role: Role };
 export type Account = { id: string; email: string; person_id: string; role: string; password_hash: string };
@@ -13,6 +14,7 @@ export class Repository {
   accountByEmail(email: string) { return this.db.prepare("SELECT * FROM users WHERE email = ? COLLATE NOCASE").get(email) as Account | undefined; }
   personForProvisioning(personId: string) { return payload<Person>(this.db.prepare("SELECT payload FROM people WHERE id = ?").get(personId)); }
   resolveUser(userId: string): User | null {
+    if (userId === localUserId) return localUser();
     const account = this.db.prepare("SELECT * FROM users WHERE id = ?").get(userId) as Account | undefined;
     if (!account || !["consultant", "payroll_lead"].includes(account.role)) return null;
     const person = this.personForProvisioning(account.person_id);
@@ -21,7 +23,7 @@ export class Repository {
   }
   clients(user: User): Client[] {
     const current = this.resolveUser(user.id);
-    if (!current) return [];
+    if (!current || current.id === localUserId) return [];
     const person = this.personForProvisioning(current.personId)!;
     const clients = this.db.prepare("SELECT payload FROM clients ORDER BY id").all().map(row => payload<Client>(row)!);
     return clients.filter(c => current.role === "consultant" ? c.consultant_ids.includes(current.personId) : person.countries?.includes(c.country));
@@ -51,11 +53,11 @@ export class Repository {
     return this.db.prepare("SELECT payload FROM assertions WHERE subject_id = ? ORDER BY id").all(employeeId).map(row => payload<Assertion>(row)!).filter(a => allowed.has(a.sourceId));
   }
   experts(user: User): Person[] {
-    if (!this.resolveUser(user.id)) return [];
+    if (user.id === localUserId || !this.resolveUser(user.id)) return [];
     return this.db.prepare("SELECT payload FROM people ORDER BY id").all().map(row => payload<Person>(row)!).filter(p => p.active && p.organisation === "SDWORX" && p.role !== "client_hr");
   }
   precedents(user: User): Precedent[] {
-    if (!this.resolveUser(user.id)) return [];
+    if (user.id === localUserId || !this.resolveUser(user.id)) return [];
     const allowed = new Set(this.clients(user).map(c => c.id));
     const clients = this.db.prepare("SELECT payload FROM clients").all().map(row => payload<Client>(row)!);
     const names = this.db.prepare("SELECT payload FROM employees").all().map(row => payload<Employee>(row)!.name);

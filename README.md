@@ -51,8 +51,10 @@ not send an email, change payroll or make a payment.
 
 Next.js App Router, TypeScript, SQLite, and deterministic evidence analysis.
 
-Requires Node 24.13+ (24.x) and npm. Run `npm install`, then `npm run db:verify`.
-`npm run dev` starts the app; `npm test`, `npm run typecheck`, and `npm run lint` run checks.
+Requires Node 24.13+ (24.x) and npm. Run `npm ci`, then `npm run db:verify`.
+Complete the environment and data setup below before running `npm run dev`.
+`npm test`, `npm run typecheck`, and `npm run lint` run the main checks;
+`npm run test:e2e` runs the Playwright browser walkthrough after a production build.
 
 Milestone 1 implements the deterministic engine, scoped case workspace, and mock
 drafts. Never write application-generated content into `data/` or `DATA_DIR`.
@@ -63,7 +65,7 @@ configuration. Use its named colour utilities (for example `bg-paper`, `text-ink
 are reserved for states and highlighter for source quotes.
 
 Typography uses IBM Plex Sans (400/500) for UI, IBM Plex Serif (400 normal/italic)
-for source text in the evidence drawer, and IBM Plex Mono (400) for identifiers.
+for client messages and source passages, and IBM Plex Mono (400) for identifiers.
 `next/font/google` loads latin and latin-ext; the fonts are self-hosted after the
 build-time download. Tailwind maps `--font-sans`, `--font-serif`, and `--font-mono`
 in `globals.css`. Body text is 14–16px, headings at most 20px, and numbers use
@@ -78,11 +80,13 @@ username `1` and password `1`. This development-only identity opens the empty
 inbox and has no client data access. Disable the flag to invalidate its sessions.
 Use `npm run user:create` for an account linked to an ingested person.
 
-The supplied fictional v1 dataset is installed in `data/`. Run `npm run data:check`
-and `npm run data:ingest` after authored updates. See `docs/data/INSTALL.md` for
-the demo clock, account provisioning, and two email metadata compatibility fixes.
-Supporting research lives in `research/`; `tests/answer_key.json` is a reference
-for expected findings, not an automated test.
+The fictional v1 demo dataset is supplied separately and is installed in this
+local workspace under `data/`. The dataset, `docs/data/`, `research/`, and
+`tests/answer_key.json` are currently untracked, so a fresh clone does not include
+them. The tracked acceptance fixture below provides a setup without that package.
+When the package is available, `docs/data/INSTALL.md` describes its demo clock,
+account provisioning, and two email metadata compatibility fixes.
+`tests/answer_key.json` is a reference for expected findings, not an automated test.
 
 ## Setup from a fresh clone (PowerShell)
 
@@ -99,8 +103,7 @@ Put the generated value after `SESSION_SECRET=` in `.env.local`. Keep existing
 local secrets when updating the file. No AI API key is needed. The app refuses
 to start with an invalid secret, clock, provider, or database configuration.
 
-Use the teammate-authored dataset by leaving `DATA_DIR=./data`, or use the
-acceptance fixture in a separate database:
+For a fresh clone, use the tracked acceptance fixture in a separate database:
 
 ```powershell
 $env:DATA_DIR = 'tests/fixtures/main'
@@ -124,6 +127,27 @@ belong to the fixture; check `people.json` for the authored dataset. Consultants
 and leads can propose, execute and confirm; only a different payroll lead can
 approve. Every transition requires a rationale. Recording “Send explanation”
 only records the action; no message or payment is sent.
+
+### Using the separately supplied demo dataset
+
+Once the teammate-authored package is installed, use the following settings
+instead of the fixture settings above. PowerShell environment variables override
+`.env.local`, so replace any fixture values in the current terminal as well.
+
+```powershell
+$env:DATA_DIR = './data'
+$env:DB_PATH = './.local/trust.db'
+$env:DEMO_NOW = '2026-02-03T12:00:00Z'
+npm run data:check
+npm run data:ingest
+npm run user:create -- --email jan@example.com --person P-0001 --role consultant
+npm run dev
+```
+
+The later demo clock includes Melanie's ticket and attachments and the second
+client's case. In this dataset Lucas (`P-0005`) is the payroll lead and Femke
+(`P-0006`) is the other client's consultant. Use `docs/data/INSTALL.md` from the
+package for its full account setup; person IDs differ from the acceptance fixture.
 
 ## Environment
 
@@ -157,10 +181,37 @@ than deleting account history. Missing/empty data shows setup guidance.
 
 ## Verification and local production
 
+Pages and answer tabs use short native view-transition fades. Disclosures animate
+open and closed in browsers supporting intrinsic-size transitions. Reduced-motion
+preferences disable these effects; older browsers retain instant navigation.
+
 ```powershell
 npm run typecheck
 npm run lint
 npm test
+```
+
+The Chromium browser walkthrough uses Playwright. Install its browser on first
+use (and after Playwright upgrades), then build and run the suite:
+
+```powershell
+npx playwright install chromium
+npm run build
+npm run test:e2e
+```
+
+`playwright.config.ts` starts and stops its own production server at
+`http://127.0.0.1:3115`; keep that port free. Setup resets the dedicated test
+database at `.local/flow-e2e/trust.db`, ingests generated fixtures, and creates
+temporary test credentials. It supplies its own session secret and mock-provider
+settings. Screenshots and failure traces are written under `test-results/`.
+The walkthrough covers Question → Answer → Respond, source details, tabs,
+what-if reset and URL replay, decision history, a mobile overflow check, and
+another consultant's denied access. `npm test` runs Vitest separately.
+
+For a manual production preview using your configured database and accounts:
+
+```powershell
 npm run build
 npm run start
 ```
@@ -179,4 +230,6 @@ old email exclusion, confirmed/reversed precedents and the what-if downgrade.
 
 Real LLMs, extraction, search and embeddings are not implemented. Aikido audit
 and deployment remain team follow-ups. See `docs/ARCHITECTURE.md` for the seams
-and `docs/MILESTONE_1_VERIFICATION.md` for the verification record.
+and `docs/MILESTONE_1_VERIFICATION.md` for the historical milestone verification
+record, including its then-pending browser walkthrough. That record is not a
+report of the current test suite's latest results.

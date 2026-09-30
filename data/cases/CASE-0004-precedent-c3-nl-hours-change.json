@@ -1,0 +1,32 @@
+{
+  "id": "CASE-0004",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0002",
+  "employee_id": "E-0007",
+  "channel": "ticket",
+  "opened_at": "2025-11-12T00:00:00Z",
+  "reporter_id": "P-0011",
+  "question_text": "Employee asks why reduced working hours were applied from the registration date.",
+  "disputed_period": {
+    "from": "2025-10-01",
+    "to": "2025-10-31"
+  },
+  "topics": [
+    "payslip",
+    "work_regime"
+  ],
+  "resolution": {
+    "root_cause": "processed_correctly",
+    "summary": "A reduction in working hours was applied from the registration date in the HR system. Under the Dutch procedure this is correct; the payslip was explained to the client.",
+    "decided_by": "P-0006",
+    "decided_at": "2025-11-12T00:00:00Z",
+    "source_ids": [
+      "DOC-0003"
+    ]
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Confirmed correct under the NL procedure; not applicable to Belgian clients."
+  }
+}

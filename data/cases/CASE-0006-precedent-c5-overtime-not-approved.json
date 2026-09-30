@@ -1,0 +1,29 @@
+{
+  "id": "CASE-0006",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0001",
+  "employee_id": "E-0003",
+  "channel": "ticket",
+  "opened_at": "2025-12-03T00:00:00Z",
+  "reporter_id": "P-0010",
+  "question_text": "Employee reports that overtime was not paid.",
+  "disputed_period": {
+    "from": "2025-11-01",
+    "to": "2025-11-30"
+  },
+  "topics": [
+    "payslip"
+  ],
+  "resolution": {
+    "root_cause": "other",
+    "summary": "Overtime was not paid because no manager approval was registered. The manager approved it afterwards and it was paid in the next run.",
+    "decided_by": "P-0004",
+    "decided_at": "2025-12-03T00:00:00Z",
+    "source_ids": []
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Paid in the next run."
+  }
+}

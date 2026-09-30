@@ -1,0 +1,30 @@
+{
+  "id": "CASE-0008",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0003",
+  "employee_id": "E-0006",
+  "channel": "ticket",
+  "opened_at": "2025-07-01T00:00:00Z",
+  "reporter_id": "P-0012",
+  "question_text": "Employee questions the amount of double holiday pay.",
+  "disputed_period": {
+    "from": "2025-06-01",
+    "to": "2025-06-30"
+  },
+  "topics": [
+    "payslip",
+    "salary"
+  ],
+  "resolution": {
+    "root_cause": "processed_correctly",
+    "summary": "The double holiday pay calculation was explained to the client; no error was found.",
+    "decided_by": "P-0002",
+    "decided_at": "2025-07-01T00:00:00Z",
+    "source_ids": []
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Client accepted the explanation."
+  }
+}

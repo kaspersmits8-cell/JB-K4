@@ -16,7 +16,8 @@
     "db:verify": "node scripts/verify-sqlite.ts",
     "data:check": "node --env-file-if-exists=.env.local scripts/data-check.ts",
     "data:ingest": "node --env-file-if-exists=.env.local scripts/data-ingest.ts",
-    "user:create": "node --env-file-if-exists=.env.local scripts/user-create.ts"
+    "user:create": "node --env-file-if-exists=.env.local scripts/user-create.ts",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -29,6 +30,7 @@
     "zod": "^4.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.63.0",
     "@tailwindcss/postcss": "^4.0.0",
     "@types/better-sqlite3": "^7.6.13",
     "@types/node": "^24.0.0",

@@ -1,0 +1,66 @@
+date,weekday,employee_id,badge_in,badge_out,gate,presence_hours
+2025-11-03,Mon,STR-0412,08:27,16:40,HQ main entrance,8.22
+2025-11-04,Tue,STR-0412,08:18,16:34,HQ main entrance,8.27
+2025-11-05,Wed,STR-0412,,,,0
+2025-11-06,Thu,STR-0412,08:37,16:35,HQ main entrance,7.97
+2025-11-07,Fri,STR-0412,08:48,17:12,HQ main entrance,8.4
+2025-11-10,Mon,STR-0412,08:22,16:46,HQ main entrance,8.41
+2025-11-11,Tue,STR-0412,,,,0
+2025-11-12,Wed,STR-0412,,,,0
+2025-11-13,Thu,STR-0412,08:20,16:53,HQ main entrance,8.56
+2025-11-14,Fri,STR-0412,08:31,16:42,HQ main entrance,8.2
+2025-11-17,Mon,STR-0412,08:34,16:57,HQ main entrance,8.39
+2025-11-18,Tue,STR-0412,08:12,16:41,HQ main entrance,8.49
+2025-11-19,Wed,STR-0412,,,,0
+2025-11-20,Thu,STR-0412,08:45,17:16,HQ main entrance,8.52
+2025-11-21,Fri,STR-0412,08:49,17:06,HQ main entrance,8.29
+2025-11-24,Mon,STR-0412,08:24,16:40,HQ main entrance,8.28
+2025-11-25,Tue,STR-0412,08:24,16:44,HQ main entrance,8.34
+2025-11-26,Wed,STR-0412,,,,0
+2025-11-27,Thu,STR-0412,08:20,16:53,HQ main entrance,8.56
+2025-11-28,Fri,STR-0412,08:14,16:38,HQ main entrance,8.41
+2025-12-01,Mon,STR-0412,08:20,16:51,HQ main entrance,8.52
+2025-12-02,Tue,STR-0412,08:27,16:45,HQ main entrance,8.31
+2025-12-03,Wed,STR-0412,,,,0
+2025-12-04,Thu,STR-0412,08:13,16:18,HQ main entrance,8.08
+2025-12-05,Fri,STR-0412,08:30,17:06,HQ main entrance,8.61
+2025-12-08,Mon,STR-0412,08:46,17:26,HQ main entrance,8.67
+2025-12-09,Tue,STR-0412,08:41,17:12,HQ main entrance,8.53
+2025-12-10,Wed,STR-0412,,,,0
+2025-12-11,Thu,STR-0412,08:45,17:06,HQ main entrance,8.36
+2025-12-12,Fri,STR-0412,08:47,17:05,HQ main entrance,8.3
+2025-12-15,Mon,STR-0412,08:24,16:29,HQ main entrance,8.09
+2025-12-16,Tue,STR-0412,08:17,16:15,HQ main entrance,7.98
+2025-12-17,Wed,STR-0412,,,,0
+2025-12-18,Thu,STR-0412,08:14,16:36,HQ main entrance,8.37
+2025-12-19,Fri,STR-0412,08:48,16:56,HQ main entrance,8.13
+2025-12-22,Mon,STR-0412,08:10,16:28,HQ main entrance,8.3
+2025-12-23,Tue,STR-0412,08:44,17:19,HQ main entrance,8.58
+2025-12-24,Wed,STR-0412,,,,0
+2025-12-25,Thu,STR-0412,,,,0
+2025-12-26,Fri,STR-0412,08:39,17:05,HQ main entrance,8.44
+2025-12-29,Mon,STR-0412,,,,0
+2025-12-30,Tue,STR-0412,,,,0
+2025-12-31,Wed,STR-0412,,,,0
+2026-01-01,Thu,STR-0412,,,,0
+2026-01-02,Fri,STR-0412,08:42,17:06,HQ main entrance,8.41
+2026-01-05,Mon,STR-0412,08:16,16:29,HQ main entrance,8.22
+2026-01-06,Tue,STR-0412,08:33,16:43,HQ main entrance,8.17
+2026-01-07,Wed,STR-0412,,,,0
+2026-01-08,Thu,STR-0412,08:41,17:08,HQ main entrance,8.46
+2026-01-09,Fri,STR-0412,08:33,16:41,HQ main entrance,8.14
+2026-01-12,Mon,STR-0412,08:15,16:55,HQ main entrance,8.68
+2026-01-13,Tue,STR-0412,08:41,17:07,HQ main entrance,8.43
+2026-01-14,Wed,STR-0412,,,,0
+2026-01-15,Thu,STR-0412,08:45,16:55,HQ main entrance,8.17
+2026-01-16,Fri,STR-0412,08:23,16:28,HQ main entrance,8.1
+2026-01-19,Mon,STR-0412,08:22,16:37,HQ main entrance,8.25
+2026-01-20,Tue,STR-0412,08:38,17:15,HQ main entrance,8.62
+2026-01-21,Wed,STR-0412,,,,0
+2026-01-22,Thu,STR-0412,08:11,16:32,HQ main entrance,8.35
+2026-01-23,Fri,STR-0412,08:24,16:46,HQ main entrance,8.37
+2026-01-26,Mon,STR-0412,08:13,16:45,HQ main entrance,8.54
+2026-01-27,Tue,STR-0412,08:12,16:27,HQ main entrance,8.26
+2026-01-28,Wed,STR-0412,,,,0
+2026-01-29,Thu,STR-0412,08:23,16:40,HQ main entrance,8.29
+2026-01-30,Fri,STR-0412,08:46,16:58,HQ main entrance,8.21

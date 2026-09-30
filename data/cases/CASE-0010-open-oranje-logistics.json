@@ -1,0 +1,30 @@
+{
+  "id": "CASE-0010",
+  "status": "open",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0002",
+  "employee_id": "E-0008",
+  "channel": "ticket",
+  "opened_at": "2026-02-03T10:00:00Z",
+  "reporter_id": "P-0011",
+  "assigned_to": "P-0006",
+  "language": "nl",
+  "question_text": "Onze medewerker meldt dat de loonstrook van januari 2026 lager is dan verwacht na een wijziging van de werkuren. Kunnen jullie dit nakijken?",
+  "disputed_period": {
+    "from": "2026-01-01",
+    "to": "2026-01-31"
+  },
+  "topics": [
+    "payslip",
+    "work_regime"
+  ],
+  "timeline": [
+    {
+      "at": "2026-02-03T10:00:00Z",
+      "type": "received",
+      "actor_id": "P-0011",
+      "description": "Question received via ticket",
+      "source_ids": []
+    }
+  ]
+}

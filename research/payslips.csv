@@ -1,0 +1,4 @@
+period,employee_id,issued,regime_factor,gross_salary,employee_social_security_13.07pct,taxable,withholding_tax,net_pay
+2025-11,STR-0412,2025-12-01,1.0,5000.0,653.5,4346.5,1230.92,3115.58
+2025-12,STR-0412,2026-01-01,1.0,5000.0,653.5,4346.5,1230.92,3115.58
+2026-01,STR-0412,2026-02-01,0.7,3500.0,457.45,3042.55,646.17,2396.38

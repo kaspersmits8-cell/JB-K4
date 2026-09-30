@@ -1,0 +1,21 @@
+{
+  "id": "REC-0003",
+  "type": "hr_master_data",
+  "system": "Stride HR tool (client-side)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": null,
+  "known_at": "2026-01-15T09:43:10Z",
+  "status": "approved",
+  "approved_by": "P-0010",
+  "visibility": "client_shareable",
+  "derived_from": [],
+  "facts": [
+    {
+      "attribute": "work_regime_pct",
+      "value": 70
+    }
+  ],
+  "note": "Regime changed 100 -> 70 by client HR on 2026-01-15; effective date 2026-01-01 defaulted to first day of month of entry (field not edited). Exported to SD Worx payroll interface 2026-01-15."
+}

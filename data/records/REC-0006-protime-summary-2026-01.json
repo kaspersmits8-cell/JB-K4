@@ -1,0 +1,20 @@
+{
+  "id": "REC-0006",
+  "type": "time_registration",
+  "system": "Protime (processed timesheets)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-01-31",
+  "known_at": "2026-01-26T00:00:00Z",
+  "status": "approved",
+  "visibility": "internal",
+  "derived_from": [],
+  "facts": [
+    {
+      "attribute": "unpaid_absence_days",
+      "value": 0
+    }
+  ],
+  "note": "Summary of validated Protime timesheets for January 2026: 21 working days worked (17 office, 4 structural telework on Wednesdays) plus 1 paid public holiday (1 Jan); 161.17h worked vs 159.6h planned full-time; no unpaid absence."
+}

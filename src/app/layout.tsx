@@ -1,8 +1,8 @@
 import "./globals.css";
-export const dynamic = "force-dynamic";
 import { IBM_Plex_Sans, IBM_Plex_Serif, IBM_Plex_Mono } from "next/font/google";
 export const dynamic = "force-dynamic";
 import { copy } from "../ui/copy.ts";
+import { PageTransition } from "../ui/PageTransition.tsx";
 
 const sans = IBM_Plex_Sans({
   weight: ["400", "500"],
@@ -28,5 +28,5 @@ const mono = IBM_Plex_Mono({
 
 export const metadata = { title: copy.app, description: "Evidence-led payroll case decisions." };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}><body>{children}</body></html>;
+  return <html lang="en" className={`${sans.variable} ${serif.variable} ${mono.variable}`}><body><PageTransition>{children}</PageTransition></body></html>;
 }

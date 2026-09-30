@@ -1,0 +1,264 @@
+{
+  "case_id": "CASE-0001",
+  "viewer": "P-0001",
+  "note": "Expected FINDINGS per question, not a verdict. Each finding has an expected state and the reason the engine should give. Replaces the old answer_key.json. Each finding also has milestone1_expectation: what the deterministic engine should return (null = not covered by the engine in milestone 1).",
+  "findings": [
+    {
+      "question": "Which work regime was agreed for the disputed period (January 2026)?",
+      "state": "established",
+      "value": {
+        "attribute": "work_regime_pct",
+        "value": 100
+      },
+      "reason": "Approved contract_change REC-0001 (100%) is valid until 2026-02-28; the approved amendment REC-0002 (70%) only starts on 2026-03-01.",
+      "source_ids": [
+        "REC-0001",
+        "REC-0002"
+      ],
+      "milestone1_expectation": {
+        "check": "agreed_regime",
+        "state": "SUPPORTED",
+        "value": 100,
+        "authoritative": [
+          "REC-0001"
+        ],
+        "not_applicable": {
+          "REC-0002": [
+            "other_period"
+          ],
+          "DOC-0006": [
+            "other_period"
+          ]
+        },
+        "contradicting": [
+          "REC-0003"
+        ]
+      }
+    },
+    {
+      "question": "Which work regime did payroll process for January 2026?",
+      "state": "established",
+      "value": {
+        "attribute": "work_regime_pct",
+        "value": 70
+      },
+      "reason": "payroll_input REC-0004 (processed) uses 70%; it is derived from HR master data REC-0003 (70% from 2026-01-01), so both count as one origin.",
+      "source_ids": [
+        "REC-0004",
+        "REC-0003"
+      ],
+      "milestone1_expectation": {
+        "check": "processed_regime",
+        "state": "SUPPORTED",
+        "value": 70,
+        "authoritative": [
+          "REC-0004"
+        ],
+        "supporting": [
+          "REC-0005"
+        ],
+        "same_origin": [
+          "REC-0004",
+          "REC-0005"
+        ]
+      }
+    },
+    {
+      "question": "Does the processed regime match the agreed regime?",
+      "state": "mismatch",
+      "reason": "Agreed 100% (REC-0001) vs processed 70% (REC-0004). The HR master data effective date 2026-01-01 precedes the amendment's effective date 2026-03-01.",
+      "source_ids": [
+        "REC-0001",
+        "REC-0002",
+        "REC-0003",
+        "REC-0004"
+      ],
+      "milestone1_expectation": {
+        "comparison": "regime_agreed_vs_processed",
+        "outcome": "mismatch",
+        "next_step": "start_correction_review"
+      }
+    },
+    {
+      "question": "Is the paid amount explained?",
+      "state": "explained",
+      "reason": "Full-time reference salary 5000 gross (REC-0001) x processed regime 70% = 3500, equal to base_salary_gross_paid on payslip REC-0005 and to the amount the client reported.",
+      "source_ids": [
+        "REC-0001",
+        "REC-0004",
+        "REC-0005"
+      ],
+      "milestone1_expectation": {
+        "derivation": "regime_explains_paid_amount",
+        "result": "explains_paid_amount",
+        "expected_at_processed": 3500,
+        "gap": 1500
+      }
+    },
+    {
+      "question": "Could unpaid absence explain the lower pay?",
+      "state": "ruled_out",
+      "reason": "Protime summary REC-0006 shows 0 unpaid absence days in January 2026.",
+      "source_ids": [
+        "REC-0006"
+      ],
+      "milestone1_expectation": {
+        "check": "unpaid_absence",
+        "state": "SUPPORTED",
+        "value": 0,
+        "available_after": "playbook update adding the unpaid_absence check"
+      }
+    },
+    {
+      "question": "What do the emails claim, and how much weight do they carry?",
+      "state": "consistent_but_unverified",
+      "reason": "DOC-0006 states 70% from 2026-03-01, consistent with approved REC-0002 (not applicable to January). DOC-0007 and DOC-0008 state a paid amount of 3500. DOC-0007 also says Piet worked full-time: that is an employee statement about hours worked, not the agreed regime, so it is deliberately not pinned as evidence. All are unverified emails: supporting at most, never authoritative.",
+      "source_ids": [
+        "DOC-0006",
+        "DOC-0007",
+        "DOC-0008"
+      ],
+      "milestone1_expectation": null
+    },
+    {
+      "question": "Did payroll raise any warning that was missed?",
+      "state": "flagged",
+      "reason": "REC-0004 note lists two unacknowledged warnings: a retroactive effective date and processed hours exceeding the 70% regime.",
+      "source_ids": [
+        "REC-0004"
+      ],
+      "milestone1_expectation": null
+    },
+    {
+      "question": "Which procedure applies?",
+      "state": "selected",
+      "value": "DOC-0001",
+      "reason": "Approved, owned (P-0002), versioned, scope BE / all clients, topics payroll_correction + work_regime, and supersedes DOC-0002.",
+      "source_ids": [
+        "DOC-0001"
+      ],
+      "milestone1_expectation": {
+        "procedure_selected": "DOC-0001"
+      }
+    },
+    {
+      "question": "Why are the other knowledge sources not used?",
+      "state": "excluded_with_reasons",
+      "details": [
+        {
+          "id": "DOC-0002",
+          "reason": "status superseded (by DOC-0001) and no owner"
+        },
+        {
+          "id": "DOC-0003",
+          "reason": "scope NL; client CL-0001 is BE"
+        },
+        {
+          "id": "DOC-0004",
+          "reason": "chat_message, unverified, no owner; contradicts approved DOC-0001"
+        }
+      ],
+      "milestone1_expectation": {
+        "procedure_not_applicable": {
+          "DOC-0002": [
+            "superseded",
+            "no_owner"
+          ],
+          "DOC-0003": [
+            "other_country"
+          ]
+        },
+        "DOC-0004": "not evaluated until the rule check is added"
+      }
+    },
+    {
+      "question": "Which precedents are relevant, and how should they be weighted?",
+      "state": "ranked",
+      "details": [
+        {
+          "id": "CASE-0002",
+          "reason": "same root cause work_regime_not_updated, BE, outcome confirmed: most relevant"
+        },
+        {
+          "id": "CASE-0003",
+          "reason": "same root cause and same client, but outcome complaint_reopened: flag as later reopened; it followed DOC-0004"
+        },
+        {
+          "id": "CASE-0007",
+          "reason": "root cause absence_miscoded: similar wording, different cause, ranked lower"
+        },
+        {
+          "id": "CASE-0004",
+          "reason": "NL client and NL procedure: not applicable to a BE case"
+        },
+        {
+          "id": "CASE-0005",
+          "reason": "based on superseded DOC-0002, outcome pending: low weight"
+        }
+      ],
+      "milestone1_expectation": {
+        "precedents_top_2_in_order": [
+          "CASE-0002",
+          "CASE-0003"
+        ],
+        "flags": {
+          "CASE-0003": [
+            "later_reversed"
+          ]
+        }
+      }
+    },
+    {
+      "question": "Who can help if doubt remains?",
+      "state": "suggested",
+      "details": [
+        {
+          "id": "P-0003",
+          "reason": "expert; decided the confirmed precedent CASE-0002; responsibilities work_regime, payroll_correction"
+        },
+        {
+          "id": "P-0002",
+          "reason": "expert; owner of the applicable procedure DOC-0001"
+        },
+        {
+          "id": "P-0005",
+          "reason": "payroll_lead; approves the correction (four-eyes)"
+        }
+      ],
+      "not_suggested": [
+        {
+          "id": "P-0007",
+          "reason": "inactive"
+        }
+      ],
+      "milestone1_expectation": {
+        "experts_top_3": [
+          "P-0002",
+          "P-0003",
+          "P-0005"
+        ],
+        "note": "P-0002 and P-0003 tie; stable id tie-break puts P-0002 first"
+      }
+    },
+    {
+      "question": "Can Jan see the open case of CL-0002?",
+      "state": "denied",
+      "reason": "Jan (P-0001) is not in consultant_ids of CL-0002; CASE-0010 must be invisible to him.",
+      "source_ids": [
+        "CASE-0010"
+      ],
+      "milestone1_expectation": {
+        "viewer": "P-0001",
+        "request": "GET /api/cases/CASE-0010/analysis",
+        "expected_status": 404
+      }
+    },
+    {
+      "question": "What remains uncertain?",
+      "state": "open",
+      "reason": "The approval behind the HR master data change (REC-0003, approved_by client HR) conflicts with the signed amendment; client HR must correct the effective date. Correction must be approved by the payroll lead per DOC-0001. Dimona/DmfA status is not in data/ (see research/).",
+      "milestone1_expectation": null
+    }
+  ],
+  "demo_now": "2026-02-03T12:00:00Z"
+}

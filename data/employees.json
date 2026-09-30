@@ -1,0 +1,73 @@
+[
+  {
+    "id": "E-0001",
+    "client_id": "CL-0001",
+    "name": "Piet Janssens",
+    "job_title": "Product Manager - Running Footwear",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0002",
+    "client_id": "CL-0001",
+    "name": "Jonas Lambrechts",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0003",
+    "client_id": "CL-0001",
+    "name": "Emma Declercq",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0004",
+    "client_id": "CL-0001",
+    "name": "Wout Aerts",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0005",
+    "client_id": "CL-0003",
+    "name": "Lisa Van Damme",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0006",
+    "client_id": "CL-0003",
+    "name": "Thomas Goris",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0007",
+    "client_id": "CL-0002",
+    "name": "Ruben de Graaf",
+    "employee_category": "white_collar",
+    "country": "NL"
+  },
+  {
+    "id": "E-0008",
+    "client_id": "CL-0002",
+    "name": "Noor Smit",
+    "employee_category": "white_collar",
+    "country": "NL"
+  },
+  {
+    "id": "E-0009",
+    "client_id": "CL-0004",
+    "name": "Kevin Dewulf",
+    "employee_category": "white_collar",
+    "country": "BE"
+  },
+  {
+    "id": "E-0010",
+    "client_id": "CL-0005",
+    "name": "Yasmine Benali",
+    "employee_category": "blue_collar",
+    "country": "BE"
+  }
+]

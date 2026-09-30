@@ -1,0 +1,17 @@
+{
+  "employee": "E-0001 (source id STR-0412)",
+  "dimona_active": true,
+  "dimona_in_date": "2019-09-01",
+  "dimona_out_date": null,
+  "dmfa": {
+    "2025_Q4": {
+      "status": "submitted",
+      "declared_regime_pct": 100,
+      "declared_weekly_hours": 38
+    },
+    "2026_Q1": {
+      "status": "not yet submitted",
+      "due_date": "2026-04-30"
+    }
+  }
+}

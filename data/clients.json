@@ -1,0 +1,46 @@
+[
+  {
+    "id": "CL-0001",
+    "name": "Stride Sports NV",
+    "country": "BE",
+    "joint_committee": "PC 200",
+    "consultant_ids": [
+      "P-0001"
+    ]
+  },
+  {
+    "id": "CL-0002",
+    "name": "Oranje Logistics BV",
+    "country": "NL",
+    "consultant_ids": [
+      "P-0006"
+    ]
+  },
+  {
+    "id": "CL-0003",
+    "name": "Velo Parts NV",
+    "country": "BE",
+    "joint_committee": "PC 200",
+    "consultant_ids": [
+      "P-0003"
+    ]
+  },
+  {
+    "id": "CL-0004",
+    "name": "Meubel Mertens BV",
+    "country": "BE",
+    "joint_committee": "PC 200",
+    "consultant_ids": [
+      "P-0007"
+    ]
+  },
+  {
+    "id": "CL-0005",
+    "name": "Bakkerij Goossens",
+    "country": "BE",
+    "joint_committee": "PC 118",
+    "consultant_ids": [
+      "P-0003"
+    ]
+  }
+]

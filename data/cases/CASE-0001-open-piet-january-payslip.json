@@ -1,0 +1,50 @@
+{
+  "id": "CASE-0001",
+  "status": "open",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "channel": "ticket",
+  "opened_at": "2026-02-02T08:14:00Z",
+  "reporter_id": "P-0010",
+  "assigned_to": "P-0001",
+  "language": "en",
+  "question_text": "Hi Jan,\n\nPiet Janssens received EUR 3,500 gross instead of EUR 5,000 for January. He says he worked full-time. I entered his regime change in our HR tool mid-January. Can you check what went wrong and whether we can fix it before the February closing? I've attached the email thread and his signed amendment.\n\nThanks,\nMelanie",
+  "disputed_period": {
+    "from": "2026-01-01",
+    "to": "2026-01-31"
+  },
+  "reported": {
+    "expected_amount": 5000,
+    "received_amount": 3500,
+    "currency": "EUR",
+    "basis": "gross"
+  },
+  "topics": [
+    "payslip",
+    "work_regime"
+  ],
+  "timeline": [
+    {
+      "at": "2026-02-02T07:57:00Z",
+      "type": "forwarded",
+      "actor_id": "P-0010",
+      "description": "Client HR forwards the employee's complaint to Jan by email",
+      "source_ids": [
+        "DOC-0008"
+      ]
+    },
+    {
+      "at": "2026-02-02T08:14:00Z",
+      "type": "received",
+      "actor_id": "P-0010",
+      "description": "Ticket SDW-2026-004187 received with email thread and signed amendment attached (priority high; February closing 2026-02-18)",
+      "source_ids": [
+        "DOC-0005",
+        "DOC-0006",
+        "DOC-0007",
+        "REC-0002"
+      ]
+    }
+  ]
+}

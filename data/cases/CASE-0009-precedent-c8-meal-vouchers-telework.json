@@ -1,0 +1,29 @@
+{
+  "id": "CASE-0009",
+  "status": "closed",
+  "question_type": "payslip_dispute",
+  "client_id": "CL-0001",
+  "employee_id": "E-0004",
+  "channel": "ticket",
+  "opened_at": "2025-11-27T00:00:00Z",
+  "reporter_id": "P-0010",
+  "question_text": "Employee reports missing meal vouchers for telework days.",
+  "disputed_period": {
+    "from": "2025-10-01",
+    "to": "2025-10-31"
+  },
+  "topics": [
+    "payslip"
+  ],
+  "resolution": {
+    "root_cause": "other",
+    "summary": "Meal vouchers were not granted for telework days, although the client policy grants them. Corrected.",
+    "decided_by": "P-0004",
+    "decided_at": "2025-11-27T00:00:00Z",
+    "source_ids": []
+  },
+  "outcome": {
+    "status": "confirmed",
+    "note": "Corrected per client policy."
+  }
+}

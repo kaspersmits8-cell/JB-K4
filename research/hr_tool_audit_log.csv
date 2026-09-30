@@ -1,0 +1,9 @@
+log_id,timestamp,user,employee_id,field,old_value,new_value,comment
+AUD-0001,2025-11-04T08:55:12,melanie.devos,STR-0412,address,"Kerkstraat 12, 2000 Antwerpen","Kerkstraat 12, 2000 Antwerpen (bus 3)",Address correction
+AUD-0002,2025-12-11T14:20:03,koen.peeters,STR-0412,timesheet_correction,2025-12-10 clock_out: null,2025-12-10 clock_out: 17:04,APR-7781 forgotten clock-out
+AUD-0003,2025-12-15T09:31:44,koen.peeters,STR-0412,leave_request,none,VAC 2025-12-29..2025-12-31,APR-7803 approved
+AUD-0004,2026-01-15T10:42:00,melanie.devos,STR-0412,regime_pct,100,70,Regime change per amendment AMD-2026-0017
+AUD-0005,2026-01-15T10:42:00,melanie.devos,STR-0412,weekly_hours,38,26.6,Regime change per amendment AMD-2026-0017
+AUD-0006,2026-01-15T10:42:00,melanie.devos,STR-0412,regime_effective_date,2019-09-01,2026-01-01,Effective date defaulted to first day of month of entry (field not edited)
+AUD-0007,2026-01-15T10:43:10,system,STR-0412,payroll_sync,pending,sent,Change exported to SD Worx payroll interface
+AUD-0008,2026-01-20T16:02:51,melanie.devos,STR-0412,bank_account,BE68 **** **** 2012,BE68 **** **** 2012,No change - verification

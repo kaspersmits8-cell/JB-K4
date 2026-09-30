@@ -103,6 +103,12 @@ competing transitions. Explanations and confirmations are recorded separately.
 
 ## Security and operation
 
+The root `PageTransition` keys React view transitions by pathname; Answer keys a
+separate boundary by tab so query-only updates do not fade the whole page. The
+question form uses Next Form for client navigation. Native details disclosures
+animate height and opacity in CSS while retaining URL-controlled state. Motion
+is progressive enhancement and disabled for reduced-motion preferences.
+
 Sessions expire after eight hours, use httpOnly/sameSite=lax cookies, and are
 secure in production. Login has bounded in-memory throttling; mutation routes
 check Origin and bounded JSON bodies. Responses are not cached. Source and AI

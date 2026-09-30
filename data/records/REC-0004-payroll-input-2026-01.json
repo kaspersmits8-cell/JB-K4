@@ -1,0 +1,22 @@
+{
+  "id": "REC-0004",
+  "type": "payroll_input",
+  "system": "SD Worx payroll engine (run RUN-202601-STR)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-01-31",
+  "known_at": "2026-01-26T00:00:00Z",
+  "status": "processed",
+  "visibility": "internal",
+  "derived_from": [
+    "REC-0003"
+  ],
+  "facts": [
+    {
+      "attribute": "work_regime_pct",
+      "value": 70
+    }
+  ],
+  "note": "Regime loaded from HR tool (effective 2026-01-01, entered 2026-01-15). Two warnings were raised and NOT acknowledged: (1) check_regime_change: effective date 2026-01-01 precedes entry date 2026-01-15 (retroactive change); (2) check_timesheet_vs_regime: processed hours (168.77h) exceed expected hours for 70% regime (117.04h); no overtime approval found; extra hours not paid."
+}

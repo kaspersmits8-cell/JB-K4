@@ -1,0 +1,26 @@
+{
+  "id": "REC-0005",
+  "type": "payslip",
+  "system": "SD Worx payroll engine (run RUN-202601-STR)",
+  "client_id": "CL-0001",
+  "employee_id": "E-0001",
+  "valid_from": "2026-01-01",
+  "valid_to": "2026-01-31",
+  "known_at": "2026-01-30T00:00:00Z",
+  "status": "processed",
+  "visibility": "client_shareable",
+  "derived_from": [
+    "REC-0004"
+  ],
+  "facts": [
+    {
+      "attribute": "base_salary_gross_paid",
+      "value": 3500
+    },
+    {
+      "attribute": "work_regime_pct",
+      "value": 70
+    }
+  ],
+  "note": "January 2026 payslip: gross 3,500.00 (5,000 x 0.70); employee social security 457.45; withholding tax 646.17 (fictional simplified scale); net 2,396.38. Paid 2026-01-30, published 2026-02-01."
+}
